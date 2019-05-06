@@ -32,24 +32,14 @@ function SimpleTable( props) {
             <TableCell>BugId</TableCell>
             <TableCell align="right">Priority</TableCell>
             <TableCell >Summary</TableCell>
-            <TableCell align="right">Assignee</TableCell>
-            <TableCell align="right">Blocks</TableCell>
-            <TableCell align="right">Depends On</TableCell>
-            <TableCell align="right">Keyword</TableCell>
-            <TableCell align="right">Whiteboard</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
             <TableRow key={row.BugID}>
-              <TableCell align="right">{row.BugID}</TableCell>
+              <TableCell align="right"><a target="none" href={`https://bugzilla.mozilla.org/${row.BugID}`}> {row.BugID}</a></TableCell>
               <TableCell align="right">{row.Priority}</TableCell>
               <TableCell >{row.Summary}</TableCell>
-              <TableCell align="right">{row.Assignee}</TableCell>
-              <TableCell align="right">{row.Blocks}</TableCell>
-              <TableCell align="right">{row.DependsOn}</TableCell>
-              <TableCell align="right">{row.Keyword}</TableCell>
-              <TableCell align="right">{row.Whiteboard}</TableCell>
             </TableRow>
           ))}
         </TableBody>
