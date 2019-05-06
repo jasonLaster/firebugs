@@ -1,11 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import results from "./results"
 import Table from './Table';
 
 
-let id = 0;
 function createData(BugID,
 Alias,
 Product,
@@ -21,8 +18,8 @@ Blocks,
 DependsOn,
 Whiteboard,
 Keyword,) {
-  id += 1;
-  return { BugID,
+  return {
+    BugID,
   Alias,
   Product,
   Component,
@@ -39,14 +36,60 @@ Keyword,) {
   Keyword };
 }
 
-function App() {
-  const table = results.splice(1, 1000)
-  const rows = table.map(row => createData(...row))
-  return (
-    <div className="App">
-      <Table rows={rows} />
-    </div>
-  );
+const priorities = ["All", "P1", "P2", "P3", "P4", "P5", "None"]
+function priorityValue(priority) {
+  if (priority == "All") {
+    return null;
+  }
+
+  if (priority == "None") {
+    return " --"
+  }
+
+  return priority;
+}
+
+async function fetchData() {
+  const results =  await (await fetch(".netlify/functions/bugs")).json()
+  results.shift();
+  return results.map(row => createData(...row))
+}
+
+class App extends React.Component {
+  state = {results: [], priority: "All"}
+  async componentDidMount() {
+    const results = await fetchData();
+    window.r = results;
+    this.setState({results})
+  }
+
+  setPriority(priority) {
+    this.setState({priority})
+  }
+
+  filterList() {
+    const {priority, results} = this.state;
+    if (priority == "All") {
+      return results;
+    }
+
+    return results.filter(bug => bug.Priority == priorityValue(priority))
+  }
+
+  render() {
+    const rows = this.filterList();
+    return (
+      <div className="App">
+      <div className="priorities">
+        {
+          priorities.map(P =><a key={P} onClick={() => this.setPriority(P)}>{P}</a>)
+        }
+        </div>
+
+        <Table rows={rows} />
+      </div>
+    );
+  }
 }
 
 export default App;

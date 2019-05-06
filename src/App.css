@@ -1,3 +1,12 @@
 .App {
   margin: 100px;
 }
+
+.priorities a {
+  margin-left: 10px;
+}
+
+.priorities a:hover {
+  background: #efefef;
+  cursor: pointer;
+}

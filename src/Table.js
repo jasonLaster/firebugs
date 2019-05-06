@@ -30,7 +30,7 @@ function SimpleTable( props) {
         <TableHead>
           <TableRow>
             <TableCell>BugId</TableCell>
-<TableCell align="right">Priority</TableCell>
+            <TableCell align="right">Priority</TableCell>
             <TableCell >Summary</TableCell>
             <TableCell align="right">Assignee</TableCell>
             <TableCell align="right">Blocks</TableCell>
@@ -41,7 +41,7 @@ function SimpleTable( props) {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <TableRow key={row.id}>
+            <TableRow key={row.BugID}>
               <TableCell align="right">{row.BugID}</TableCell>
               <TableCell align="right">{row.Priority}</TableCell>
               <TableCell >{row.Summary}</TableCell>
