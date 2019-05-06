@@ -40,7 +40,7 @@ Keyword,) {
 }
 
 function App() {
-  const table = results.splice(1, 20)
+  const table = results.splice(1, 1000)
   const rows = table.map(row => createData(...row))
   return (
     <div className="App">
