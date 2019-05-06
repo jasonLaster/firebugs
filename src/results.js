@@ -1,21 +1,21 @@
 export default [
-  [
-    "Bug ID",
-    "Alias",
-    "Product",
-    "Component",
-    "Assignee",
-    "Status",
-    "Resolution",
-    "Summary",
-    "Changed",
-    "Priority",
-    "backlog",
-    "Blocks",
-    "Depends on",
-    "Whiteboard",
-    "Keywords"
-  ],
+  // [
+  //   "Bug ID",
+  //   "Alias",
+  //   "Product",
+  //   "Component",
+  //   "Assignee",
+  //   "Status",
+  //   "Resolution",
+  //   "Summary",
+  //   "Changed",
+  //   "Priority",
+  //   "backlog",
+  //   "Blocks",
+  //   "Depends on",
+  //   "Whiteboard",
+  //   "Keywords"
+  // ],
   [
     "1279541",
     "",
