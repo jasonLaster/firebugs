@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BugLink from './BugLink';
 
 const styles = theme => ({
   root: {
@@ -19,22 +20,18 @@ function SimpleTable(props) {
     // <Paper className={classes.root}>
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
-        <tr>
-          <th align="left">BugId</th>
-          <th align="left">Priority</th>
-          <th align="left">Summary</th>
-        </tr>
+        <thead>
+          <tr>
+            <th align="left">BugId</th>
+            <th align="left">Priority</th>
+            <th align="left">Summary</th>
+          </tr>
+        </thead>
         <tbody>
           {rows.map(row => (
             <tr key={row.BugID}>
               <td align="left">
-                <a
-                  target="none"
-                  href={`https://bugzilla.mozilla.org/${row.BugID}`}
-                >
-                  {' '}
-                  {row.BugID}
-                </a>
+                <BugLink bug={row} />
               </td>
               <td align="left">{row.Priority}</td>
               <td>{row.Summary}</td>
@@ -47,8 +44,6 @@ function SimpleTable(props) {
   );
 }
 
-SimpleTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+SimpleTable.propTypes = {};
 
 export default SimpleTable;

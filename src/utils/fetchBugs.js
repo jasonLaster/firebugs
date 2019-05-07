@@ -1,3 +1,5 @@
+import { fetchedResults } from './results';
+
 function createData(
   BugID,
   Alias,
@@ -40,9 +42,10 @@ function saveData(results) {
 }
 
 async function fetchData() {
-  const results = await (await fetch('.netlify/functions/bugs')).json();
-  results.shift();
-  return results.map(row => createData(...row));
+  // const results = await (await fetch('.netlify/functions/bugs')).json();
+  // results.shift();
+  // return results.map(row => createData(...row));
+  return fetchedResults;
 }
 
 export async function getBugs(force = false) {

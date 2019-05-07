@@ -1,0 +1,192 @@
+body {
+  /* overflow-y: hidden; */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  background: #f6f4ec;
+  height: 100vh;
+}
+
+.App-Header {
+  border-top: 4px solid var(--primary-5);
+
+  background: white;
+  filter: drop-shadow(1px 0px 4px var(--neutral-2));
+  z-index: 100;
+}
+
+.App-Header .nav {
+  max-width: 1000px;
+  margin: 20px 100px;
+}
+
+.App-Body {
+  padding: 40px 100px;
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.priorities a {
+  margin-left: 10px;
+}
+
+.priorities a:hover {
+  background: #efefef;
+  cursor: pointer;
+}
+
+table.pure-table {
+  border-collapse: unset;
+  border-radius: 4px;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+table > tr {
+  line-height: 30px;
+  font-weight: normal;
+  width: 100%;
+}
+
+th {
+  font-weight: normal;
+}
+
+.pure-table td {
+  border-color: #e1e1e1;
+}
+
+.bugs-table {
+  background: white;
+  border-radius: 4px;
+
+  margin-top: 20px;
+  overflow-x: auto;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+a.bugId {
+  color: var(--neutral-10);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+body {
+  --primary-10: hsl(263, 85%, 18%);
+  --primary-9: hsl(262, 72%, 25%);
+  --primary-8: hsl(262, 69%, 31%);
+  --primary-7: hsl(262, 60%, 38%);
+  --primary-6: hsl(262, 48%, 46%);
+  /*???*/
+  --primary-5: hsl(262, 48%, 46%);
+  --primary-4: hsl(262, 43%, 51%);
+  --primary-3: hsl(262, 47%, 58%);
+  --primary-2: hsl(262, 54%, 68%);
+  --primary-1: hsl(262, 68%, 84%);
+  --primary-0: hsl(262, 61%, 93%);
+
+  --neutral-10: hsl(42, 15%, 13%);
+  --neutral-9: hsl(40, 13%, 23%);
+  --neutral-8: hsl(37, 11%, 28%);
+  --neutral-7: hsl(41, 9%, 35%);
+  --neutral-6: hsl(41, 8%, 48%);
+  --neutral-4: hsl(41, 8%, 61%);
+  --neutral-3: hsl(39, 11%, 69%);
+  --neutral-2: hsl(40, 15%, 80%);
+  --neutral-1: hsl(43, 13%, 90%);
+  --neutral-0: hsl(40, 23%, 97%);
+}
+
+/*
+.cyan-10 { color: hsl(, %,%)}
+.cyan-9 { color: hsl(, %, %)}
+.cyan-8 { color: hsl(, %, %)}
+.cyan-7 { color: hsl(, %, %)}
+.cyan-6 { color: hsl(, %, %)}
+.cyan-5 { color: hsl(, %, %)}
+.cyan-4 { color: hsl(, %, %)}
+.cyan-3 { color: hsl(, %, %)}
+.cyan-2 { color: hsl(, %, %)}
+.cyan-1 { color: hsl(, %, %)}
+.cyan-0 { color: hsl(, %, %)}
+
+.red-10 { color: hsl(, %,%)}
+.red-9 { color: hsl(, %, %)}
+.red-8 { color: hsl(, %, %)}
+.red-7 { color: hsl(, %, %)}
+.red-6 { color: hsl(, %, %)}
+.red-5 { color: hsl(, %, %)}
+.red-4 { color: hsl(, %, %)}
+.red-3 { color: hsl(, %, %)}
+.red-2 { color: hsl(, %, %)}
+.red-1 { color: hsl(, %, %)}
+.red-0 { color: hsl(, %, %)}
+
+
+.yellow-10 { color: hsl(, %,%)}
+.yellow-9 { color: hsl(, %, %)}
+.yellow-8 { color: hsl(, %, %)}
+.yellow-7 { color: hsl(, %, %)}
+.yellow-6 { color: hsl(, %, %)}
+.yellow-5 { color: hsl(, %, %)}
+.yellow-4 { color: hsl(, %, %)}
+.yellow-3 { color: hsl(, %, %)}
+.yellow-2 { color: hsl(, %, %)}
+.yellow-1 { color: hsl(, %, %)}
+.yellow-0 { color: hsl(, %, %)}
+
+
+.green-10 { color: hsl(, %,%)}
+.green-9 { color: hsl(, %, %)}
+.green-8 { color: hsl(, %, %)}
+.green-7 { color: hsl(, %, %)}
+.green-6 { color: hsl(, %, %)}
+.green-5 { color: hsl(, %, %)}
+.green-4 { color: hsl(, %, %)}
+.green-3 { color: hsl(, %, %)}
+.green-2 { color: hsl(, %, %)}
+.green-1 { color: hsl(, %, %)}
+.green-0 { color: hsl(, %, %)}
+
+*/
+
+.meta {
+  background: white;
+  border-radius: 4px;
+  border: 1px solid var(--neutral-1);
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.meta-header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--neutral-1);
+  padding: 10px;
+}
+
+.meta-header .alias {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.meta-header .summary {
+  flex-grow: 1;
+}
+
+.meta-body {
+  padding: 10px;
+}
+
+.meta-body .dep {
+  display: flex;
+  line-height: 24px;
+}
+
+.meta-body .dep .summary {
+  margin-left: 10px;
+  text-overflow: clip;
+}

@@ -1,7 +1,9 @@
 import React from 'react';
 import Table from './Table';
-import { getBugs } from './utils/fetchBugs';
+import { getBugs } from '../utils/fetchBugs';
 import { sortBy } from 'lodash';
+import Meta from './Meta';
+
 import './App.css';
 
 const priorities = ['All', 'P1', 'P2', 'P3', 'P4', 'P5', 'None'];
@@ -23,7 +25,7 @@ class App extends React.Component {
     firstBugs: false,
     results: false,
     resultsMap: {},
-    groupByMetas: false,
+    groupByMetas: true,
     showMetas: false,
   };
 
@@ -106,15 +108,7 @@ class App extends React.Component {
     return sortBy(metas, meta =>
       meta.Priority.match(/\d/) ? +meta.Priority.match(/\d/)[0] : 10
     ).map(meta => {
-      const deps = meta.DependsOn.split(', ')
-        .map(dep => resultsMap[dep])
-        .filter(i => i);
-      return (
-        <div>
-          <h2>{meta.Summary}</h2>
-          <Table rows={deps} />
-        </div>
-      );
+      return <Meta meta={meta} resultsMap={resultsMap} />;
     });
   }
 
@@ -128,22 +122,28 @@ class App extends React.Component {
     const rows = this.filterList(results);
     return (
       <div className="App">
-        <a onClick={() => this.refresh(true)}>Refresh</a>
-        <div className="priorities">
-          Filter By:{' '}
-          {priorities.map(P => (
-            <a key={P} onClick={() => this.setPriority(P)}>
-              {P}
-            </a>
-          ))}
-          <a onClick={() => this.toggleMetas()}>Metas</a>
-          <a onClick={() => this.toggleFirstBugs()}>Good First Bugs</a>
-          <div>
-            Group By:
-            <a onClick={() => this.groupMetas()}> Metas</a>
+        <div className="App-Header">
+          <div className="nav">
+            <a onClick={() => this.refresh(true)}>Refresh</a>
+            <div className="priorities">
+              Filter By:{' '}
+              {priorities.map(P => (
+                <a key={P} onClick={() => this.setPriority(P)}>
+                  {P}
+                </a>
+              ))}
+              <a onClick={() => this.toggleMetas()}>Metas</a>
+              <a onClick={() => this.toggleFirstBugs()}>Good First Bugs</a>
+              <div>
+                Group By:
+                <a onClick={() => this.groupMetas()}> Metas</a>
+              </div>
+            </div>
           </div>
         </div>
-        {groupByMetas ? this.metas() : <Table rows={rows} />}
+        <div className="App-Body">
+          {groupByMetas ? this.metas() : <Table rows={rows} />}
+        </div>
       </div>
     );
   }
