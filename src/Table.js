@@ -20,14 +20,14 @@ function SimpleTable(props) {
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
         <tr>
-          <th>BugId</th>
-          <th align="right">Priority</th>
-          <th>Summary</th>
+          <th align="left">BugId</th>
+          <th align="left">Priority</th>
+          <th align="left">Summary</th>
         </tr>
         <tbody>
           {rows.map(row => (
             <tr key={row.BugID}>
-              <td align="right">
+              <td align="left">
                 <a
                   target="none"
                   href={`https://bugzilla.mozilla.org/${row.BugID}`}
@@ -36,7 +36,7 @@ function SimpleTable(props) {
                   {row.BugID}
                 </a>
               </td>
-              <td align="right">{row.Priority}</td>
+              <td align="left">{row.Priority}</td>
               <td>{row.Summary}</td>
             </tr>
           ))}

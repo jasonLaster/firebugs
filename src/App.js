@@ -20,6 +20,7 @@ function priorityValue(priority) {
 class App extends React.Component {
   state = {
     priority: 'All',
+    firstBugs: false,
     results: false,
     resultsMap: {},
     groupByMetas: false,
@@ -31,14 +32,23 @@ class App extends React.Component {
   }
 
   setPriority(priority) {
-    this.setState({ priority, showMetas: false });
+    this.setState({
+      priority,
+      groupMetas: false,
+      showMetas: false,
+      firstBugs: false,
+    });
   }
 
   filterList(results) {
-    const { priority, showMetas } = this.state;
+    const { priority, showMetas, firstBugs } = this.state;
 
     if (showMetas) {
       return this.findMetas(results);
+    }
+
+    if (firstBugs) {
+      return results.filter(b => b.Keywords.includes('first'));
     }
 
     if (priority == 'All') {
@@ -53,11 +63,27 @@ class App extends React.Component {
   }
 
   toggleMetas() {
-    this.setState({ showMetas: !this.state.showMetas });
+    this.setState({
+      groupMetas: false,
+      firstBugs: false,
+      showMetas: !this.state.showMetas,
+    });
+  }
+
+  toggleFirstBugs() {
+    this.setState({
+      groupMetas: false,
+      showMetas: false,
+      firstBugs: !this.state.firstBugs,
+    });
   }
 
   groupMetas() {
-    this.setState({ showMetas: false, groupByMetas: !this.state.groupByMetas });
+    this.setState({
+      firstBugs: false,
+      showMetas: false,
+      groupByMetas: !this.state.groupByMetas,
+    });
   }
 
   async refresh(force = false) {
@@ -111,6 +137,7 @@ class App extends React.Component {
             </a>
           ))}
           <a onClick={() => this.toggleMetas()}>Metas</a>
+          <a onClick={() => this.toggleFirstBugs()}>Good First Bugs</a>
           <div>
             Group By:
             <a onClick={() => this.groupMetas()}> Metas</a>

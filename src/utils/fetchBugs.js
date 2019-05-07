@@ -1,6 +1,5 @@
-
-
-function createData(BugID,
+function createData(
+  BugID,
   Alias,
   Product,
   Component,
@@ -14,7 +13,8 @@ function createData(BugID,
   Blocks,
   DependsOn,
   Whiteboard,
-  Keywords) {
+  Keywords
+) {
   return {
     BugID,
     Alias,
@@ -30,27 +30,32 @@ function createData(BugID,
     Blocks,
     DependsOn,
     Whiteboard,
-    Keywords
+    Keywords,
   };
 }
 
+function saveData(results) {
+  localStorage.setItem('results', JSON.stringify(results));
+  localStorage.setItem('updated', Date.now());
+}
 
 async function fetchData() {
-  const results =  await (await fetch(".netlify/functions/bugs")).json()
+  const results = await (await fetch('.netlify/functions/bugs')).json();
   results.shift();
-  return results.map(row => createData(...row))
+  return results.map(row => createData(...row));
 }
 
 export async function getBugs(force = false) {
-  const oldData = Number(await localStorage.getItem("updated")) < Date.now() - 10*60000;
-  let localData = await localStorage.getItem("results");
+  const oldData =
+    Number(await localStorage.getItem('updated')) < Date.now() - 30 * 60000;
+  let localData = await localStorage.getItem('results');
   let results;
   if (force || !localData || oldData) {
     results = await fetchData();
-    localStorage.setItem("results", JSON.stringify(results));
-    localStorage.setItem("updated", Date.now())
+    saveData(results);
   } else {
     results = JSON.parse(localData);
+    fetchData().then(saveData);
   }
 
   window.bugs = results;

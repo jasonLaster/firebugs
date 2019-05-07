@@ -45,3 +45,80 @@ th {
   box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
 
 }
+
+
+
+.primary-10 { color: hsl(263, 85%, 18%)l }
+.primary-9 { color: hsl(262, 72%, 25%)l }
+.primary-8 { color: hsl(262, 69%, 31%)l }
+.primary-7 { color: hsl(262, 60%, 38%)l }
+.primary-6 { color: hsl(262, 48%, 46%)l }
+.primary-4 { color: hsl(262, 43%, 51%)l }
+.primary-3 { color: hsl(262, 47%, 58%)l }
+.primary-2 { color: hsl(262, 54%, 68%)l }
+.primary-1 { color: hsl(262, 68%, 84%)l }
+.primary-0 { color: hsl(262, 61%, 93%)l }
+
+.neutral-10 { color: hsl(42, 15%, 13%)l }
+.neutral-9 { color: hsl(40, 13%, 23%)l }
+.neutral-8 { color: hsl(37, 11%, 28%)l }
+.neutral-7 { color: hsl(41, 9%, 35%)l }
+.neutral-6 { color: hsl(41, 8%, 48%)l }
+.neutral-4 { color: hsl(41, 8%, 61%)l }
+.neutral-3 { color: hsl(39, 11%, 69%)l }
+.neutral-2 { color: hsl(40, 15%, 80%)l }
+.neutral-1 { color: hsl(43, 13%, 90%)l }
+.neutral-0 { color: hsl(40, 23%, 97%)l }
+
+/*
+.cyan-10 { color: hsl(, %,%)}
+.cyan-9 { color: hsl(, %, %)}
+.cyan-8 { color: hsl(, %, %)}
+.cyan-7 { color: hsl(, %, %)}
+.cyan-6 { color: hsl(, %, %)}
+.cyan-5 { color: hsl(, %, %)}
+.cyan-4 { color: hsl(, %, %)}
+.cyan-3 { color: hsl(, %, %)}
+.cyan-2 { color: hsl(, %, %)}
+.cyan-1 { color: hsl(, %, %)}
+.cyan-0 { color: hsl(, %, %)}
+
+.red-10 { color: hsl(, %,%)}
+.red-9 { color: hsl(, %, %)}
+.red-8 { color: hsl(, %, %)}
+.red-7 { color: hsl(, %, %)}
+.red-6 { color: hsl(, %, %)}
+.red-5 { color: hsl(, %, %)}
+.red-4 { color: hsl(, %, %)}
+.red-3 { color: hsl(, %, %)}
+.red-2 { color: hsl(, %, %)}
+.red-1 { color: hsl(, %, %)}
+.red-0 { color: hsl(, %, %)}
+
+
+.yellow-10 { color: hsl(, %,%)}
+.yellow-9 { color: hsl(, %, %)}
+.yellow-8 { color: hsl(, %, %)}
+.yellow-7 { color: hsl(, %, %)}
+.yellow-6 { color: hsl(, %, %)}
+.yellow-5 { color: hsl(, %, %)}
+.yellow-4 { color: hsl(, %, %)}
+.yellow-3 { color: hsl(, %, %)}
+.yellow-2 { color: hsl(, %, %)}
+.yellow-1 { color: hsl(, %, %)}
+.yellow-0 { color: hsl(, %, %)}
+
+
+.green-10 { color: hsl(, %,%)}
+.green-9 { color: hsl(, %, %)}
+.green-8 { color: hsl(, %, %)}
+.green-7 { color: hsl(, %, %)}
+.green-6 { color: hsl(, %, %)}
+.green-5 { color: hsl(, %, %)}
+.green-4 { color: hsl(, %, %)}
+.green-3 { color: hsl(, %, %)}
+.green-2 { color: hsl(, %, %)}
+.green-1 { color: hsl(, %, %)}
+.green-0 { color: hsl(, %, %)}
+
+*/
