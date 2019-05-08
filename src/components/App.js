@@ -95,12 +95,13 @@ class App extends React.Component {
     });
   }
 
-  async refresh(force = false) {
-    if (force) {
-      this.setState({ results: false });
-    }
+  async refresh() {
+    const { results, fetched } = await getBugs();
+    fetched.then(res => this.updateResults(res));
+    this.updateResults(results);
+  }
 
-    const results = await getBugs(force);
+  updateResults(results) {
     const resultsMap = {};
     for (const result of results) {
       resultsMap[result.BugID] = result;
@@ -135,7 +136,6 @@ class App extends React.Component {
       <div className="App">
         <div className="App-Header">
           <div className="nav">
-            <a onClick={() => this.refresh(true)}>Refresh</a>
             <div className="priorities">
               Filter By:{' '}
               {priorities.map(P => (

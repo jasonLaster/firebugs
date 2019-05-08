@@ -41,31 +41,35 @@ function createData(
 function saveData(results) {
   localStorage.setItem('results', JSON.stringify(results));
   localStorage.setItem('updated', Date.now());
+  window.bugs = results;
+  return results;
 }
 
 async function fetchData() {
   if (offline) {
     return fetchedResults;
   } else {
-    const results = await (await fetch('.netlify/functions/bugs')).json();
+    let results = await (await fetch('.netlify/functions/bugs')).json();
     results.shift();
-    return results.map(row => createData(...row));
+    results = results.map(row => createData(...row));
+    return results;
   }
 }
 
-export async function getBugs(force = false) {
-  const oldData =
-    Number(await localStorage.getItem('updated')) < Date.now() - 30 * 60000;
-  let localData = await localStorage.getItem('results');
-  let results;
-  if (force || !localData || oldData) {
-    results = await fetchData();
-    saveData(results);
-  } else {
-    results = JSON.parse(localData);
-    fetchData().then(saveData);
+function parse(localData) {
+  try {
+    return JSON.parse(localData);
+  } catch (e) {
+    localStorage.clear();
+    return {};
   }
+}
+
+export async function getBugs() {
+  let localData = await localStorage.getItem('results');
+  const results = localData ? parse(localData) : [];
+  const fetched = fetchData().then(saveData);
 
   window.bugs = results;
-  return results;
+  return { results, fetched };
 }

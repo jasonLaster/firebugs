@@ -15,14 +15,16 @@ function Row({ bug, bugs }) {
     .map(id => bugs[id])
     .filter(i => i);
   return (
-    <tr key={bug.BugID}>
+    <tr>
       <td align="left">
         <BugIDLink bug={bug} />
       </td>
       <td>
         {formatSummary(bug.Summary)}
         {blocks.map(b => (
-          <span className="meta">{b.Alias || b.BugID}</span>
+          <span key={b.BugID} className="meta">
+            {b.Alias || b.BugID}
+          </span>
         ))}
       </td>
       <td align="left">{bug.Priority}</td>
@@ -37,7 +39,7 @@ function SimpleTable({ classes, rows, bugs }) {
       <table className="pure-table pure-table-horizontal">
         <tbody>
           {rows.map(row => (
-            <Row bug={row} bugs={bugs} />
+            <Row key={row.BugID} bug={row} bugs={bugs} />
           ))}
         </tbody>
       </table>
