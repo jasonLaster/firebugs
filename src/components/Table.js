@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BugIDLink } from './BugLink';
+import { sortByPriority } from '../utils';
 
 function formatSummary(summary) {
   // if (summary.match('Intermittent devtools')) {
@@ -38,7 +39,7 @@ function SimpleTable({ classes, rows, bugs }) {
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
         <tbody>
-          {rows.map(row => (
+          {sortByPriority(rows).map(row => (
             <Row key={row.BugID} bug={row} bugs={bugs} />
           ))}
         </tbody>
