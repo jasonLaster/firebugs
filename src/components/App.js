@@ -3,17 +3,23 @@ import Table from './Table';
 import { getBugs } from '../utils/fetchBugs';
 import { sortByPriority } from '../utils';
 
+import { debounce } from 'lodash';
+
+import Fuse from 'fuse.js';
+
 import Meta from './Meta';
 
 import './App.css';
 
+window.F = Fuse;
+
 const priorities = ['All', 'P1', 'P2', 'P3', 'P4', 'P5', 'None'];
 function priorityValue(priority) {
-  if (priority == 'All') {
+  if (priority === 'All') {
     return null;
   }
 
-  if (priority == 'None') {
+  if (priority === 'None') {
     return ' --';
   }
 
@@ -32,10 +38,16 @@ class App extends React.Component {
     resultsMap: {},
     groupByMetas: false,
     showMetas: false,
+    search: '',
   };
 
+  constructor(props) {
+    super(props);
+    this.onSearch = debounce(this.onSearch, 100);
+  }
   async componentDidMount() {
     this.refresh();
+    this.searchInput = this.state.search;
   }
 
   setPriority(priority) {
@@ -48,22 +60,38 @@ class App extends React.Component {
   }
 
   filterList(results) {
-    const { priority, showMetas, firstBugs } = this.state;
+    const { priority, showMetas, firstBugs, search } = this.state;
+    let filtered = results;
+
+    if (search !== '') {
+      const fuse = new Fuse(results, {
+        keys: [
+          {
+            name: 'Summary',
+          },
+        ],
+        tokenize: true,
+        matchAllTokens: true,
+        threshold: 0.2,
+        shouldSort: true,
+      });
+      filtered = fuse.search(search.trim());
+    }
 
     if (showMetas) {
-      return this.findMetas(results);
+      return this.findMetas(filtered);
     }
 
     if (firstBugs) {
-      return results.filter(b => b.Keywords.includes('first'));
+      return filtered.filter(b => b.Keywords.includes('first'));
     }
 
-    if (priority == 'All') {
-      return results;
+    if (priority === 'All') {
+      return filtered;
     }
 
-    return results.filter(
-      bug => bug.Priority == priorityValue(priority) && !isMeta(bug)
+    return filtered.filter(
+      bug => bug.Priority === priorityValue(priority) && !isMeta(bug)
     );
   }
 
@@ -85,6 +113,10 @@ class App extends React.Component {
       showMetas: false,
       firstBugs: !this.state.firstBugs,
     });
+  }
+
+  onSearch(search) {
+    this.setState({ search });
   }
 
   groupMetas() {
@@ -113,8 +145,8 @@ class App extends React.Component {
     const { results, resultsMap } = this.state;
     const metas = this.findMetas(results);
 
-    const inProgress = metas.filter(meta => meta.Priority == 'P2');
-    const backlog = metas.filter(meta => meta.Priority != 'P2');
+    const inProgress = metas.filter(meta => meta.Priority === 'P2');
+    const backlog = metas.filter(meta => meta.Priority !== 'P2');
     return [
       ...inProgress.map(meta => <Meta meta={meta} resultsMap={resultsMap} />),
       <div className="backlog" />,
@@ -125,7 +157,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { results, groupByMetas, resultsMap } = this.state;
+    const { results, groupByMetas, resultsMap, search } = this.state;
 
     if (!results) {
       return <div>Fetching</div>;
@@ -139,15 +171,29 @@ class App extends React.Component {
             <div className="priorities">
               Filter By:{' '}
               {priorities.map(P => (
-                <a key={P} onClick={() => this.setPriority(P)}>
+                <a href="#" key={P} onClick={() => this.setPriority(P)}>
                   {P}
                 </a>
               ))}
-              <a onClick={() => this.toggleMetas()}>Metas</a>
-              <a onClick={() => this.toggleFirstBugs()}>Good First Bugs</a>
+              <a href="#" onClick={() => this.toggleMetas()}>
+                Metas
+              </a>
+              <a href="#" onClick={() => this.toggleFirstBugs()}>
+                Good First Bugs
+              </a>
               <div>
                 Group By:
-                <a onClick={() => this.groupMetas()}> Metas</a>
+                <a href="#" onClick={() => this.groupMetas()}>
+                  Metas
+                </a>
+              </div>
+              <div>
+                Search: &nbsp;
+                <input
+                  type="text"
+                  ref={this.searchInput}
+                  onChange={e => this.onSearch(e.target.value)}
+                />
               </div>
             </div>
           </div>
