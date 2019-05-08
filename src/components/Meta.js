@@ -6,9 +6,9 @@ import { BugIDLink, BugSummaryLink } from './BugLink';
 const newBugHref = id =>
   `https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=DevTools&component=Debugger&blocked=${id}`;
 
-export default function Meta({ meta, resultsMap }) {
+export default function Meta({ meta, bugs }) {
   const deps = meta.DependsOn.split(', ');
-  const openBugs = deps.map(dep => resultsMap[dep]).filter(i => i);
+  const openBugs = deps.map(dep => bugs[dep]).filter(i => i);
   const completeCount = deps.length - openBugs.length;
   const progress = `${(completeCount / deps.length) * 100}%`;
 

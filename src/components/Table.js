@@ -10,10 +10,7 @@ function formatSummary(summary) {
   return summary;
 }
 
-function Row({ bug, bugs }) {
-  const blocks = bug.Blocks.split(',')
-    .map(id => bugs[id])
-    .filter(i => i);
+function Row({ bug, selectMeta }) {
   return (
     <tr>
       <td align="left">
@@ -21,8 +18,12 @@ function Row({ bug, bugs }) {
       </td>
       <td>
         {formatSummary(bug.Summary)}
-        {blocks.map(b => (
-          <span key={b.BugID} className="meta">
+        {bug.Metas.map(b => (
+          <span
+            key={b.BugID}
+            className="meta"
+            onClick={() => selectMeta(b.Alias || b.BugID)}
+          >
             {b.Alias || b.BugID}
           </span>
         ))}
@@ -32,19 +33,17 @@ function Row({ bug, bugs }) {
   );
 }
 
-function SimpleTable({ classes, rows, bugs }) {
+function SimpleTable({ classes, rows, selectMeta }) {
   return (
-    // <Paper className={classes.root}>
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
         <tbody>
           {sortByPriority(rows).map(row => (
-            <Row key={row.BugID} bug={row} bugs={bugs} />
+            <Row key={row.BugID} bug={row} selectMeta={selectMeta} />
           ))}
         </tbody>
       </table>
     </div>
-    // </Paper>
   );
 }
 

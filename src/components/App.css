@@ -82,6 +82,13 @@ th {
   white-space: nowrap;
 }
 
+.bugs-table span.meta:hover {
+  cursor: pointer;
+  background: var(--primary-3);
+  border-color: var(--primary-4);
+  color: var(--primary-10);
+}
+
 a.bugId {
   color: var(--neutral-10);
   text-decoration: none;

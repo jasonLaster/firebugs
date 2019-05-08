@@ -1,5 +1,5 @@
 import { fetchedResults } from './results';
-
+import { isMeta } from './index';
 const offline = false;
 
 function createData(
@@ -41,7 +41,7 @@ function createData(
 function saveData(results) {
   localStorage.setItem('results', JSON.stringify(results));
   localStorage.setItem('updated', Date.now());
-  window.bugs = results;
+
   return results;
 }
 
@@ -65,11 +65,37 @@ function parse(localData) {
   }
 }
 
+function formatResults(results) {
+  const bugs = {};
+
+  const metas = {};
+  for (const result of results) {
+    if (isMeta(result)) {
+      metas[result.BugID] = result;
+    }
+  }
+
+  for (const result of results) {
+    bugs[result.BugID] = result;
+  }
+
+  for (const result of results) {
+    result.Metas = result.Blocks.split(', ')
+      .map(id => bugs[id])
+      .filter(i => i);
+  }
+
+  window.results = results;
+  window.bugs = bugs;
+  return { bugs, results };
+}
+
 export async function getBugs() {
   let localData = await localStorage.getItem('results');
   const results = localData ? parse(localData) : [];
-  const fetched = fetchData().then(saveData);
+  const fetched = fetchData()
+    .then(saveData)
+    .then(formatResults);
 
-  window.bugs = results;
-  return { results, fetched };
+  return { fetched, ...formatResults(results) };
 }

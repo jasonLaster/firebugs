@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from './Table';
 import { getBugs } from '../utils/fetchBugs';
-import { sortByPriority } from '../utils';
+import { sortByPriority, isMeta } from '../utils';
 
 import { debounce } from 'lodash';
 
@@ -26,24 +26,22 @@ function priorityValue(priority) {
   return priority;
 }
 
-function isMeta(bug) {
-  return bug.Keywords.includes('meta');
-}
-
 class App extends React.Component {
   state = {
     priority: 'All',
     firstBugs: false,
     results: false,
-    resultsMap: {},
+    bugs: {},
     groupByMetas: false,
     showMetas: false,
+    meta: null,
     search: '',
   };
 
   constructor(props) {
     super(props);
     this.onSearch = debounce(this.onSearch, 100);
+    this.selectMeta = this.selectMeta.bind(this);
   }
   async componentDidMount() {
     this.refresh();
@@ -60,7 +58,7 @@ class App extends React.Component {
   }
 
   filterList(results) {
-    const { priority, showMetas, firstBugs, search } = this.state;
+    const { priority, showMetas, firstBugs, search, meta } = this.state;
     let filtered = results;
 
     if (search !== '') {
@@ -78,6 +76,10 @@ class App extends React.Component {
       filtered = fuse.search(search.trim());
     }
 
+    if (meta) {
+      filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
+    }
+
     if (showMetas) {
       return this.findMetas(filtered);
     }
@@ -93,6 +95,14 @@ class App extends React.Component {
     return filtered.filter(
       bug => bug.Priority === priorityValue(priority) && !isMeta(bug)
     );
+  }
+
+  selectMeta(alias) {
+    if (alias === this.state.meta) {
+      return this.setState({ meta: null });
+    }
+
+    this.setState({ meta: alias });
   }
 
   findMetas(results) {
@@ -128,38 +138,34 @@ class App extends React.Component {
   }
 
   async refresh() {
-    const { results, fetched } = await getBugs();
+    const { results, bugs, fetched } = await getBugs();
     fetched.then(res => this.updateResults(res));
-    this.updateResults(results);
+    this.updateResults({ results, bugs });
   }
 
-  updateResults(results) {
-    const resultsMap = {};
-    for (const result of results) {
-      resultsMap[result.BugID] = result;
-    }
-    this.setState({ results, resultsMap });
+  updateResults({ results, bugs }) {
+    this.setState({ results, bugs });
   }
 
   metas() {
-    const { results, resultsMap } = this.state;
+    const { results, bugs } = this.state;
     const metas = this.findMetas(results);
 
     const inProgress = metas.filter(meta => meta.Priority === 'P2');
     const backlog = metas.filter(meta => meta.Priority !== 'P2');
     return [
       ...inProgress.map(meta => (
-        <Meta key={meta.BugID} meta={meta} resultsMap={resultsMap} />
+        <Meta key={meta.BugID} meta={meta} bugs={bugs} />
       )),
       <div key="backlog" className="backlog" />,
       ...sortByPriority(backlog).map(meta => (
-        <Meta key={meta.BugID} meta={meta} resultsMap={resultsMap} />
+        <Meta key={meta.BugID} meta={meta} bugs={bugs} />
       )),
     ];
   }
 
   render() {
-    const { results, groupByMetas, resultsMap } = this.state;
+    const { results, groupByMetas, bugs } = this.state;
 
     if (!results) {
       return <div>Fetching</div>;
@@ -204,7 +210,7 @@ class App extends React.Component {
           {groupByMetas ? (
             this.metas()
           ) : (
-            <Table rows={rows} bugs={resultsMap} />
+            <Table selectMeta={this.selectMeta} rows={rows} bugs={bugs} />
           )}
         </div>
       </div>
