@@ -1,7 +1,8 @@
 import React from 'react';
 import Table from './Table';
 import { getBugs } from '../utils/fetchBugs';
-import { sortBy } from 'lodash';
+import { sortByPriority } from '../utils';
+
 import Meta from './Meta';
 
 import './App.css';
@@ -19,13 +20,17 @@ function priorityValue(priority) {
   return priority;
 }
 
+function isMeta(bug) {
+  return bug.Keywords.includes('meta');
+}
+
 class App extends React.Component {
   state = {
     priority: 'All',
     firstBugs: false,
     results: false,
     resultsMap: {},
-    groupByMetas: true,
+    groupByMetas: false,
     showMetas: false,
   };
 
@@ -36,7 +41,7 @@ class App extends React.Component {
   setPriority(priority) {
     this.setState({
       priority,
-      groupMetas: false,
+      groupByMetas: false,
       showMetas: false,
       firstBugs: false,
     });
@@ -57,11 +62,13 @@ class App extends React.Component {
       return results;
     }
 
-    return results.filter(bug => bug.Priority == priorityValue(priority));
+    return results.filter(
+      bug => bug.Priority == priorityValue(priority) && !isMeta(bug)
+    );
   }
 
   findMetas(results) {
-    return results.filter(bug => bug.Keywords.includes('meta'));
+    return results.filter(isMeta);
   }
 
   toggleMetas() {
@@ -105,15 +112,19 @@ class App extends React.Component {
     const { results, resultsMap } = this.state;
     const metas = this.findMetas(results);
 
-    return sortBy(metas, meta =>
-      meta.Priority.match(/\d/) ? +meta.Priority.match(/\d/)[0] : 10
-    ).map(meta => {
-      return <Meta meta={meta} resultsMap={resultsMap} />;
-    });
+    const inProgress = metas.filter(meta => meta.Priority == 'P2');
+    const backlog = metas.filter(meta => meta.Priority != 'P2');
+    return [
+      ...inProgress.map(meta => <Meta meta={meta} resultsMap={resultsMap} />),
+      <div className="backlog" />,
+      ...sortByPriority(backlog).map(meta => (
+        <Meta meta={meta} resultsMap={resultsMap} />
+      )),
+    ];
   }
 
   render() {
-    const { results, groupByMetas } = this.state;
+    const { results, groupByMetas, resultsMap } = this.state;
 
     if (!results) {
       return <div>Fetching</div>;
@@ -142,7 +153,11 @@ class App extends React.Component {
           </div>
         </div>
         <div className="App-Body">
-          {groupByMetas ? this.metas() : <Table rows={rows} />}
+          {groupByMetas ? (
+            this.metas()
+          ) : (
+            <Table rows={rows} bugs={resultsMap} />
+          )}
         </div>
       </div>
     );

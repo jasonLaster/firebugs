@@ -14564,7 +14564,7 @@ export const fetchedResults = [
     Resolution: ' ---',
     Summary: '[meta] Windowless Worker Debugging M1',
     Changed: '2019-05-03 02:34:17',
-    Priority: ' --',
+    Priority: 'P2',
     backlog: ' ---',
     Blocks: '1003097',
     DependsOn:

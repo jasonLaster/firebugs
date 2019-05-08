@@ -1,41 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BugLink from './BugLink';
+import { BugIDLink } from './BugLink';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-});
+function formatSummary(summary) {
+  // if (summary.match('Intermittent devtools')) {
+  //   const test = summary.match(/^.*\/(.*)\|/)[1];
+  //   return `Intermittent ${test}`;
+  // }
+  return summary;
+}
 
-function SimpleTable(props) {
-  const { classes, rows } = props;
+function Row({ bug, bugs }) {
+  const blocks = bug.Blocks.split(',')
+    .map(id => bugs[id])
+    .filter(i => i);
+  return (
+    <tr key={bug.BugID}>
+      <td align="left">
+        <BugIDLink bug={bug} />
+      </td>
+      <td>
+        {formatSummary(bug.Summary)}
+        {blocks.map(b => (
+          <span className="meta">{b.Alias || b.BugID}</span>
+        ))}
+      </td>
+      <td align="left">{bug.Priority}</td>
+    </tr>
+  );
+}
 
+function SimpleTable({ classes, rows, bugs }) {
   return (
     // <Paper className={classes.root}>
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
-        <thead>
-          <tr>
-            <th align="left">BugId</th>
-            <th align="left">Priority</th>
-            <th align="left">Summary</th>
-          </tr>
-        </thead>
         <tbody>
           {rows.map(row => (
-            <tr key={row.BugID}>
-              <td align="left">
-                <BugLink bug={row} />
-              </td>
-              <td align="left">{row.Priority}</td>
-              <td>{row.Summary}</td>
-            </tr>
+            <Row bug={row} bugs={bugs} />
           ))}
         </tbody>
       </table>

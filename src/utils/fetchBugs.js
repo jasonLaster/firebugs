@@ -1,5 +1,7 @@
 import { fetchedResults } from './results';
 
+const offline = false;
+
 function createData(
   BugID,
   Alias,
@@ -42,10 +44,13 @@ function saveData(results) {
 }
 
 async function fetchData() {
-  // const results = await (await fetch('.netlify/functions/bugs')).json();
-  // results.shift();
-  // return results.map(row => createData(...row));
-  return fetchedResults;
+  if (offline) {
+    return fetchedResults;
+  } else {
+    const results = await (await fetch('.netlify/functions/bugs')).json();
+    results.shift();
+    return results.map(row => createData(...row));
+  }
 }
 
 export async function getBugs(force = false) {

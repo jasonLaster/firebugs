@@ -62,11 +62,19 @@ th {
 .bugs-table {
   background: white;
   border-radius: 4px;
-
   margin-top: 20px;
   overflow-x: auto;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+.bugs-table span.meta {
+    background: var(--primary-1);
+    margin-left: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--primary-3);
+    padding: 2px 4px;
+    font-size: 12px;
+    color: var(--primary-8);
+    font-weight: bold;
 }
 
 a.bugId {
@@ -81,112 +89,145 @@ body {
   --primary-8: hsl(262, 69%, 31%);
   --primary-7: hsl(262, 60%, 38%);
   --primary-6: hsl(262, 48%, 46%);
-  /*???*/
-  --primary-5: hsl(262, 48%, 46%);
-  --primary-4: hsl(262, 43%, 51%);
-  --primary-3: hsl(262, 47%, 58%);
-  --primary-2: hsl(262, 54%, 68%);
-  --primary-1: hsl(262, 68%, 84%);
-  --primary-0: hsl(262, 61%, 93%);
+  --primary-5: hsl(262, 43%, 51%);
+  --primary-4: hsl(262, 47%, 58%);
+  --primary-3: hsl(262, 54%, 68%);
+  --primary-2: hsl(262, 68%, 84%);
+  --primary-1: hsl(262, 61%, 93%);
 
   --neutral-10: hsl(42, 15%, 13%);
   --neutral-9: hsl(40, 13%, 23%);
   --neutral-8: hsl(37, 11%, 28%);
   --neutral-7: hsl(41, 9%, 35%);
   --neutral-6: hsl(41, 8%, 48%);
-  --neutral-4: hsl(41, 8%, 61%);
-  --neutral-3: hsl(39, 11%, 69%);
-  --neutral-2: hsl(40, 15%, 80%);
-  --neutral-1: hsl(43, 13%, 90%);
-  --neutral-0: hsl(40, 23%, 97%);
+  --neutral-5: hsl(41, 8%, 61%);
+  --neutral-4: hsl(39, 11%, 69%);
+  --neutral-3: hsl(40, 15%, 80%);
+  --neutral-2: hsl(43, 13%, 90%);
+  --neutral-1: hsl(40, 23%, 97%);
+
+  --cyan-10: hsl(184, 91%, 17%);
+  --cyan-9: hsl(185, 84%, 25%);
+  --cyan-8: hsl(185, 81%, 29%);
+  --cyan-7: hsl(184, 77%, 34%);
+  --cyan-6: hsl(185, 62%, 45%);
+  --cyan-5: hsl(185, 57%, 50%);
+  --cyan-4: hsl(184, 65%, 59%);
+  --cyan-3: hsl(184, 80%, 74%);
+  --cyan-2: hsl(185, 94%, 97%);
+  --cyan-1: hsl(186, 100%, 94%);
+
+  --red-10: hsl(348, 94%, 20%);
+  --red-9: hsl(350, 94%, 28%);
+  --red-8: hsl(352, 90%, 35%);
+  --red-7: hsl(354, 85%, 44%);
+  --red-6: hsl(356, 75%, 53%);
+  --red-5: hsl(360, 83%, 62%);
+  --red-4: hsl(360, 91%, 69%);
+  --red-3: hsl(360, 100%, 80%);
+  --red-2: hsl(360, 100%, 87%);
+  --red-1: hsl(360, 100%, 95%);
+
+  --yellow-10: hsl(43, 86%, 17%);
+  --yellow-9: hsl(43, 77%, 27%);
+  --yellow-8: hsl(43, 72%, 37%);
+  --yellow-7: hsl(42, 63%, 48%);
+  --yellow-6: hsl(42, 78%, 60%);
+  --yellow-5: hsl(43, 89%, 70%);
+  --yellow-4: hsl(43, 90%, 76%);
+  --yellow-3: hsl(45, 86%, 81%);
+  --yellow-2: hsl(45, 90%, 88%);
+  --yellow-1: hsl(45, 100%, 96%);
+
+  --green-10: hsl(125, 97%, 14%);
+  --green-9: hsl(125, 86%, 20%);
+  --green-8: hsl(125, 79%, 26%);
+  --green-7: hsl(122, 80%, 29%);
+  --green-6: hsl(122, 73%, 35%);
+  --green-5: hsl(123, 57%, 45%);
+  --green-4: hsl(123, 53%, 55%);
+  --green-3: hsl(124, 63%, 74%);
+  --green-2: hsl(127, 65%, 85%);
+  --green-1: hsl(125, 65%, 93%);
 }
-
-/*
-.cyan-10 { color: hsl(, %,%)}
-.cyan-9 { color: hsl(, %, %)}
-.cyan-8 { color: hsl(, %, %)}
-.cyan-7 { color: hsl(, %, %)}
-.cyan-6 { color: hsl(, %, %)}
-.cyan-5 { color: hsl(, %, %)}
-.cyan-4 { color: hsl(, %, %)}
-.cyan-3 { color: hsl(, %, %)}
-.cyan-2 { color: hsl(, %, %)}
-.cyan-1 { color: hsl(, %, %)}
-.cyan-0 { color: hsl(, %, %)}
-
-.red-10 { color: hsl(, %,%)}
-.red-9 { color: hsl(, %, %)}
-.red-8 { color: hsl(, %, %)}
-.red-7 { color: hsl(, %, %)}
-.red-6 { color: hsl(, %, %)}
-.red-5 { color: hsl(, %, %)}
-.red-4 { color: hsl(, %, %)}
-.red-3 { color: hsl(, %, %)}
-.red-2 { color: hsl(, %, %)}
-.red-1 { color: hsl(, %, %)}
-.red-0 { color: hsl(, %, %)}
-
-
-.yellow-10 { color: hsl(, %,%)}
-.yellow-9 { color: hsl(, %, %)}
-.yellow-8 { color: hsl(, %, %)}
-.yellow-7 { color: hsl(, %, %)}
-.yellow-6 { color: hsl(, %, %)}
-.yellow-5 { color: hsl(, %, %)}
-.yellow-4 { color: hsl(, %, %)}
-.yellow-3 { color: hsl(, %, %)}
-.yellow-2 { color: hsl(, %, %)}
-.yellow-1 { color: hsl(, %, %)}
-.yellow-0 { color: hsl(, %, %)}
-
-
-.green-10 { color: hsl(, %,%)}
-.green-9 { color: hsl(, %, %)}
-.green-8 { color: hsl(, %, %)}
-.green-7 { color: hsl(, %, %)}
-.green-6 { color: hsl(, %, %)}
-.green-5 { color: hsl(, %, %)}
-.green-4 { color: hsl(, %, %)}
-.green-3 { color: hsl(, %, %)}
-.green-2 { color: hsl(, %, %)}
-.green-1 { color: hsl(, %, %)}
-.green-0 { color: hsl(, %, %)}
-
-*/
 
 .meta {
   background: white;
   border-radius: 4px;
-  border: 1px solid var(--neutral-1);
+  border: 1px solid var(--neutral-3);
   margin-bottom: 20px;
   font-size: 14px;
+  max-width: 900px;
+  margin: 40px auto;
 }
 
 .meta-header {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid var(--neutral-1);
+  border-bottom: 1px solid var(--neutral-2);
   padding: 10px;
+  background: var(--neutral-1);
+  border-radius: 4px 4px 0 0;
 }
 
 .meta-header .alias {
   font-weight: bold;
   margin-right: 10px;
 }
+
 .meta-header .summary {
   flex-grow: 1;
 }
 
+.meta-header .new-bug {
+  text-decoration: none;
+  color: var(--neutral-8);
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 .meta-body {
-  padding: 10px;
+}
+
+
+.meta-body .pure-table {
+  border: none;
+}
+
+.meta-body .pure-table td {
+  border-color: var(--neutral-2);
+}
+
+.meta-body .pure-table tr:hover td {
+  background: var(--neutral-1);
+  cursor: pointer;
 }
 
 .meta-body .dep {
-  display: flex;
-  line-height: 24px;
+  line-height: 30px;
 }
 
 .meta-body .dep .summary {
   margin-left: 10px;
   text-overflow: clip;
+}
+
+.meta-footer .progress-bar {
+  width: 100%;
+  background: var(--neutral-2);
+  height: 10px;
+  border-radius: 0 0px 4px 4px;
+  position: relative;
+}
+
+.meta-footer .progress {
+  height: 100%;
+  background: var(--cyan-4);
+  border-radius: 0 0 0 4px;
+}
+
+.backlog {
+  width: 100%;
+  background: var(--primary-3);
+  height: 1px;
 }
