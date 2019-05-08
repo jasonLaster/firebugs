@@ -19,10 +19,15 @@ export default function Meta({ meta, resultsMap }) {
         <div className="summary">
           <BugSummaryLink bug={meta} />
         </div>
-        <div class="progress">
+        <div className="progress">
           {completeCount} / {deps.length}
         </div>
-        <a className="new-bug" href={newBugHref(meta.BugID)} target="none">
+        <a
+          href="#"
+          className="new-bug"
+          href={newBugHref(meta.BugID)}
+          target="none"
+        >
           +
         </a>
       </div>

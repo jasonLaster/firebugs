@@ -148,16 +148,18 @@ class App extends React.Component {
     const inProgress = metas.filter(meta => meta.Priority === 'P2');
     const backlog = metas.filter(meta => meta.Priority !== 'P2');
     return [
-      ...inProgress.map(meta => <Meta meta={meta} resultsMap={resultsMap} />),
-      <div className="backlog" />,
+      ...inProgress.map(meta => (
+        <Meta key={meta.BugID} meta={meta} resultsMap={resultsMap} />
+      )),
+      <div key="backlog" className="backlog" />,
       ...sortByPriority(backlog).map(meta => (
-        <Meta meta={meta} resultsMap={resultsMap} />
+        <Meta key={meta.BugID} meta={meta} resultsMap={resultsMap} />
       )),
     ];
   }
 
   render() {
-    const { results, groupByMetas, resultsMap, search } = this.state;
+    const { results, groupByMetas, resultsMap } = this.state;
 
     if (!results) {
       return <div>Fetching</div>;
@@ -169,7 +171,7 @@ class App extends React.Component {
         <div className="App-Header">
           <div className="nav">
             <div className="priorities">
-              Filter By:{' '}
+              Filter &nbsp;
               {priorities.map(P => (
                 <a href="#" key={P} onClick={() => this.setPriority(P)}>
                   {P}
@@ -182,13 +184,13 @@ class App extends React.Component {
                 Good First Bugs
               </a>
               <div>
-                Group By:
+                Group &nbsp;
                 <a href="#" onClick={() => this.groupMetas()}>
                   Metas
                 </a>
               </div>
               <div>
-                Search: &nbsp;
+                Search &nbsp;
                 <input
                   type="text"
                   ref={this.searchInput}
