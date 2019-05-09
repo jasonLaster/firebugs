@@ -27,17 +27,29 @@ class App extends React.Component {
   metas() {
     const {
       bugs: { bugsMap, metas },
+      filteredBugs,
     } = this.props;
 
     const inProgress = metas.filter(meta => meta.Priority === 'P2');
     const backlog = metas.filter(meta => meta.Priority !== 'P2');
+    const filteredIds = new Set(filteredBugs.map(b => b.BugID));
     return [
       ...inProgress.map(meta => (
-        <Meta key={meta.BugID} meta={meta} bugsMap={bugsMap} />
+        <Meta
+          key={meta.BugID}
+          meta={meta}
+          bugsMap={bugsMap}
+          filteredIds={filteredIds}
+        />
       )),
       <div key="backlog" className="backlog" />,
       ...sortByPriority(backlog).map(meta => (
-        <Meta key={meta.BugID} meta={meta} bugsMap={bugsMap} />
+        <Meta
+          key={meta.BugID}
+          meta={meta}
+          bugsMap={bugsMap}
+          filteredIds={filteredIds}
+        />
       )),
     ];
   }

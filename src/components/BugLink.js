@@ -4,7 +4,7 @@ export function BugSummaryLink({ bug }) {
   return (
     <a
       target="_blank"
-      className="bugId"
+      className="bugSummary"
       rel="noopener noreferrer"
       href={`https://bugzilla.mozilla.org/${bug.BugID}`}
     >

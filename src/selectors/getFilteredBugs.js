@@ -51,7 +51,5 @@ export function getFilteredBugs(state) {
     return filtered;
   }
 
-  return filtered.filter(
-    bug => bug.Priority === priorityValue(priority) && !isMeta(bug)
-  );
+  return filtered.filter(bug => bug.Priority === priorityValue(priority));
 }

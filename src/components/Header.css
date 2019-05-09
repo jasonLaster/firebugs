@@ -5,10 +5,6 @@
   z-index: 100;
 }
 
-.App-Header.metas .nav {
-  height: 80px;
-}
-
 .App-Header a {
   text-decoration: none;
   margin-left: 10px;
@@ -22,6 +18,10 @@
   padding: 10px;
   height: 130px;
   background: white;
+}
+
+.App-Header .selected {
+  font-weight: bold;
 }
 
 .App-Header h1 {
@@ -60,10 +60,87 @@
 }
 
 .search-field input {
-  line-height: 24px;
+  line-height: 30px;
   font-size: 14px;
-  padding-left: 5px;
+  padding-left: 10px;
+  background: var(--neutral-1);
+  outline: none;
+  border: 1px solid var(--neutral-3);
+  border-radius: 5px;
 }
+
 .App-Header .gap {
   height: 60px;
+}
+
+.filters {
+  color: var(--neutral-6);
+}
+
+[data-reach-menu] {
+  z-index: 1000;
+}
+
+[data-reach-menu-list] {
+  border-radius: 4px;
+  padding: 0 0px;
+  color: var(--neutral-6);
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+[data-reach-menu-item] {
+  padding: 5px 10px;
+}
+
+[data-reach-menu-item][data-selected] {
+  background: var(--cyan-5);
+}
+
+[data-reach-menu-list] [data-reach-menu-item]:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+[data-reach-menu-list] [data-reach-menu-item]:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+.filters {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters button {
+  margin-left: 10px;
+  background: white;
+  border: 1px solid var(--neutral-3);
+  border-radius: 6px;
+  line-height: 24px;
+  display: flex;
+  text-align: left;
+  padding: 0;
+  font-size: 14px;
+}
+
+.filters button.selected {
+  background: var(--cyan-5);
+  border-color: var(--cyan-7);
+  color: var(--cyan-2);
+}
+
+.filters button .label {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.filters button .button {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.filters button.selected .button {
+  color: var(--cyan-2);
 }

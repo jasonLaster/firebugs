@@ -8,11 +8,15 @@ import './Meta.css';
 const newBugHref = id =>
   `https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=DevTools&component=Debugger&blocked=${id}`;
 
-export default function Meta({ meta, bugsMap }) {
+export default function Meta({ meta, bugsMap, filteredIds }) {
   const deps = meta.DependsOn.split(', ');
   const openBugs = deps.map(dep => bugsMap[dep]).filter(i => i);
   const completeCount = deps.length - openBugs.length;
   const progress = `${(completeCount / deps.length) * 100}%`;
+
+  const shownBugs = sortByPriority(
+    openBugs.filter(b => filteredIds.has(b.BugID))
+  );
 
   return (
     <div className="meta">
@@ -37,7 +41,7 @@ export default function Meta({ meta, bugsMap }) {
         <div className="meta-body">
           <table className="pure-table pure-table-horizontal">
             <tbody>
-              {sortByPriority(openBugs).map(bug => (
+              {shownBugs.map(bug => (
                 <tr key={bug.BugID} className="dep">
                   <td width="80px" align="left">
                     <BugIDLink bug={bug} />

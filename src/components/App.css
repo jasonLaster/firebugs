@@ -22,6 +22,11 @@ a.bugId {
   font-weight: 600;
 }
 
+a.bugSummary {
+  color: var(--neutral-10);
+  text-decoration: none;
+}
+
 .App-Footer {
 }
 .App-Footer .content {
