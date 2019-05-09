@@ -80,9 +80,9 @@ class App extends React.Component {
       setMeta,
       setPriority,
       bugs: { bugs },
-      filters: { page },
+      filters,
     } = this.props;
-    const groupByMetas = page == 'metas';
+    const groupByMetas = filters.page == 'metas';
 
     if (!bugs) {
       return <div>Fetching</div>;
@@ -99,6 +99,7 @@ class App extends React.Component {
               setMeta={setMeta}
               setPriority={setPriority}
               rows={filteredBugs}
+              filters={filters}
             />
           )}
         </div>

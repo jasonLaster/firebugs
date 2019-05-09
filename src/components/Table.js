@@ -12,7 +12,10 @@ function formatSummary(summary) {
   return summary;
 }
 
-function Row({ bug, setMeta, setPriority }) {
+function Row({ bug, filters, setMeta, setPriority }) {
+  const shownMetas = bug.Metas.filter(
+    meta => (meta.Alias || meta.BugID) != filters.meta
+  );
   return (
     <tr>
       <td align="left">
@@ -20,7 +23,7 @@ function Row({ bug, setMeta, setPriority }) {
       </td>
       <td>
         {<BugSummaryLink bug={bug} />}
-        {bug.Metas.map(b => (
+        {shownMetas.map(b => (
           <span
             key={b.BugID}
             className="meta"
@@ -41,7 +44,7 @@ function Row({ bug, setMeta, setPriority }) {
   );
 }
 
-function SimpleTable({ classes, rows, setMeta, setPriority }) {
+function SimpleTable({ classes, rows, filters, setMeta, setPriority }) {
   if (rows.length == 0) {
     return <h2 className="empty-results"> No results found</h2>;
   }
@@ -54,6 +57,7 @@ function SimpleTable({ classes, rows, setMeta, setPriority }) {
             <Row
               key={row.BugID}
               bug={row}
+              filters={filters}
               setMeta={setMeta}
               setPriority={setPriority}
             />
