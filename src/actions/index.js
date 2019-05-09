@@ -25,7 +25,7 @@ export function setSearch(search) {
   return setFilter({ search });
 }
 
-function setFilter(value) {
+export function setFilter(value) {
   return { type: 'SET_FILTER', value };
 }
 

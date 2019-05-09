@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { debounce, sortBy } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import {
   Menu,
@@ -114,7 +115,10 @@ class Header extends React.Component {
             type="text"
             ref={this.searchInput}
             placeholder="Search..."
-            onChange={e => this.onSearch(e.target.value)}
+            onChange={e => {
+              debugger;
+              this.onSearch(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -168,7 +172,7 @@ class Header extends React.Component {
       filteredBugs,
     } = this.props;
 
-    const metasPage = page == 'metas';
+    const metasPage = page === 'metas';
 
     return (
       <div className={`App-Header ${page}`}>
@@ -176,14 +180,14 @@ class Header extends React.Component {
           <div className="links">
             <a
               className={page === 'bugs' ? 'selected' : ''}
-              href="#"
+              href="#bugs"
               onClick={() => setPage('bugs')}
             >
               Bugs
             </a>
             <a
               className={page === 'metas' ? 'selected' : ''}
-              href="#"
+              href="#metas"
               onClick={() => setPage('metas')}
             >
               Metas

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import * as actions from '../actions';
 import { getFilteredBugs } from '../selectors';
 
@@ -11,9 +12,28 @@ import Meta from './Meta';
 
 import './App.css';
 
+function parseParams() {
+  const search = window.location.toString().match(/\?.*/);
+  if (!search) {
+    return {};
+  }
+
+  const params = new URLSearchParams(search[0]);
+  return {
+    priority: params.get('priority') || 'All',
+    meta: params.get('meta'),
+    keyword: params.get('keyword'),
+    // search: params.get('search')
+    //   ? decodeURIComponent(params.get('search'))
+    //   : '',
+  };
+}
+
 class App extends React.Component {
   async componentDidMount() {
     this.refresh();
+    const params = parseParams();
+    this.props.setFilter(params);
   }
 
   async refresh() {

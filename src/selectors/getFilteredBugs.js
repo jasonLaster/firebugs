@@ -31,13 +31,6 @@ export function getFilteredBugs(state) {
   } = state;
 
   let filtered = bugs;
-  if (search !== '') {
-    filtered = doSearch(bugs, search);
-  }
-
-  if (meta) {
-    filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
-  }
 
   if (keyword === 'meta') {
     filtered = metas;
@@ -45,6 +38,14 @@ export function getFilteredBugs(state) {
 
   if (keyword === 'first') {
     filtered = filtered.filter(b => b.Keywords.includes('first'));
+  }
+
+  if (search !== '') {
+    filtered = doSearch(bugs, search);
+  }
+
+  if (meta) {
+    filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
   }
 
   if (priority === 'All') {
