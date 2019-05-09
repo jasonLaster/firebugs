@@ -20,7 +20,7 @@ function parseParams() {
 
   const params = new URLSearchParams(search[0]);
   return {
-    priority: params.get('priority') || 'All',
+    priority: params.get('priority'),
     meta: params.get('meta'),
     keyword: params.get('keyword'),
     // search: params.get('search')

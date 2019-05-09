@@ -2,7 +2,7 @@ import Fuse from 'fuse.js';
 import { isMeta } from '../utils';
 
 function priorityValue(priority) {
-  if (priority === 'All') {
+  if (!priority) {
     return null;
   }
 
@@ -32,12 +32,8 @@ export function getFilteredBugs(state) {
 
   let filtered = bugs;
 
-  if (keyword === 'meta') {
-    filtered = metas;
-  }
-
-  if (keyword === 'first') {
-    filtered = filtered.filter(b => b.Keywords.includes('first'));
+  if (keyword) {
+    filtered = filtered.filter(b => b.Keywords.includes(keyword));
   }
 
   if (search !== '') {
@@ -48,7 +44,7 @@ export function getFilteredBugs(state) {
     filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
   }
 
-  if (priority === 'All') {
+  if (!priority) {
     return filtered;
   }
 

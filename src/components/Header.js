@@ -15,6 +15,52 @@ import './Header.css';
 
 const priorities = ['P1', 'P2', 'P3', 'P4', 'P5', 'None'];
 
+function identityMap(list) {
+  const map = {};
+  for (const item of list) {
+    map[item] = item;
+  }
+  return map;
+}
+
+const priorityMap = identityMap(priorities);
+
+const keywordMap = {
+  meta: 'Metas',
+  first: 'Good First Bugs',
+  'intermittent-failure': 'Intermittents',
+};
+const keywords = Object.keys(keywordMap);
+
+function FilterButton({ name, filter, updater, list, map }) {
+  if (filter) {
+    return (
+      <button className="selected" onClick={() => updater(null)}>
+        <div className="label">{map[filter]}</div>
+        <div className="button">×</div>
+      </button>
+    );
+  }
+
+  return (
+    <Menu>
+      <MenuButton>
+        <div className="label">{name}</div>
+        <div aria-hidden className="button">
+          ▾
+        </div>
+      </MenuButton>
+      <MenuList>
+        {list.map(key => (
+          <MenuItem key={key} onSelect={() => updater(key)}>
+            {map[key]}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
+  );
+}
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -35,79 +81,37 @@ class Header extends React.Component {
       filters: { keyword, priority, page, meta },
       bugs: { metas },
     } = this.props;
+
+    const metaList = sortBy(metas, m => m.Alias || `x${m.BugID}`).map(
+      m => m.Alias || m.BugID
+    );
+    const metasMap = identityMap(metaList);
+
     return (
       <div className="search-box">
         <div className="filters">
-          {priority !== 'All' ? (
-            <button className="selected" onClick={() => setPriority('All')}>
-              <div className="label">{priority}</div>
-              <div className="button">×</div>
-            </button>
-          ) : (
-            <Menu>
-              <MenuButton>
-                <div className="label">Priority</div>
-                <div aria-hidden className="button">
-                  ▾
-                </div>
-              </MenuButton>
-              <MenuList>
-                {priorities.map(P => (
-                  <MenuItem key={P} onSelect={() => setPriority(P)}>
-                    {P}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
-          )}
+          <FilterButton
+            name="Priority"
+            updater={setPriority}
+            filter={priority}
+            list={priorities}
+            map={priorityMap}
+          />
 
-          {keyword ? (
-            <button className="selected" onClick={() => setKeyword(null)}>
-              <div className="label">{keyword}</div>{' '}
-              <div className="button">×</div>
-            </button>
-          ) : (
-            <Menu>
-              <MenuButton>
-                <div className="label">Keyword</div>
-                <div aria-hidden className="button">
-                  ▾
-                </div>
-              </MenuButton>
-              <MenuList>
-                <MenuItem onSelect={() => setKeyword('meta')}>Metas</MenuItem>
-                <MenuItem onSelect={() => setKeyword('first')}>
-                  Good First Bugs
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          )}
-
-          {meta ? (
-            <button className="selected" onClick={() => setMeta(null)}>
-              <div className="label">{meta}</div>{' '}
-              <div className="button">×</div>
-            </button>
-          ) : (
-            <Menu>
-              <MenuButton>
-                <div className="label">Meta</div>
-                <div aria-hidden className="button">
-                  ▾
-                </div>
-              </MenuButton>
-              <MenuList>
-                {sortBy(metas, m => m.Alias || `x${m.BugID}`).map(m => (
-                  <MenuItem
-                    key={m.BugID}
-                    onSelect={() => setMeta(m.Alias || m.BugID)}
-                  >
-                    {m.Alias || m.BugID}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
-          )}
+          <FilterButton
+            name="Keyword"
+            updater={setKeyword}
+            filter={keyword}
+            list={keywords}
+            map={keywordMap}
+          />
+          <FilterButton
+            name="Metas"
+            updater={setMeta}
+            filter={meta}
+            list={metaList}
+            map={metasMap}
+          />
         </div>
         <div className="search-field">
           <input
@@ -137,7 +141,7 @@ class Header extends React.Component {
 
     let term = '';
 
-    if (priority !== 'All') {
+    if (priority) {
       if (priority == 'None') {
         term = 'un-prioritized';
       } else {
@@ -149,10 +153,8 @@ class Header extends React.Component {
       term += ` ${meta}`;
     }
 
-    if (keyword == 'meta') {
-      term += ' Metas';
-    } else if (keyword == 'first') {
-      term += ' First Bugs';
+    if (keyword) {
+      term += ` ${keywordMap[keyword]}`;
     } else {
       term += ' Bugs';
     }

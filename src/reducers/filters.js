@@ -1,5 +1,5 @@
 const initialState = {
-  priority: 'All',
+  priority: null,
   keyword: null,
   meta: null,
   search: '',
@@ -21,7 +21,7 @@ function updateUrl({ page, keyword, meta, search, priority }) {
   //   parts.push(`search=${encodeURIComponent(search)}`);
   // }
 
-  if (priority !== 'All') {
+  if (priority) {
     parts.push(`priority=${priority}`);
   }
 
