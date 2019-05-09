@@ -190,6 +190,13 @@ class Header extends React.Component {
             >
               Metas
             </a>
+            <a
+              className={page === 'releases' ? 'selected' : ''}
+              href="#releases"
+              onClick={() => setPage('releases')}
+            >
+              Release
+            </a>
           </div>
           <h1>{this.getTitle()}</h1>
           {this.searchBox()}

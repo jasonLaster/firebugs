@@ -26,18 +26,22 @@ function doSearch(results, search) {
 
 export function getFilteredBugs(state) {
   const {
-    filters: { priority, keyword, search, meta },
+    filters: { priority, keyword, search, meta, page },
     bugs: { bugs, metas },
   } = state;
 
   let filtered = bugs;
+
+  if (page === 'releases') {
+    filtered = filtered.filter(b => b.Whiteboard.includes('debugger-mvp'));
+  }
 
   if (keyword) {
     filtered = filtered.filter(b => b.Keywords.includes(keyword));
   }
 
   if (search !== '') {
-    filtered = doSearch(bugs, search);
+    filtered = doSearch(filtered, search);
   }
 
   if (meta) {

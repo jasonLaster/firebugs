@@ -74,7 +74,7 @@ class App extends React.Component {
     ];
   }
 
-  render() {
+  renderPage() {
     const {
       filteredBugs,
       setMeta,
@@ -82,27 +82,32 @@ class App extends React.Component {
       bugs: { bugs },
       filters,
     } = this.props;
-    const groupByMetas = filters.page == 'metas';
 
-    if (!bugs) {
+    if (filters.page == 'metas') {
+      return this.metas();
+    }
+
+    return (
+      <Table
+        setMeta={setMeta}
+        setPriority={setPriority}
+        rows={filteredBugs}
+        filters={filters}
+      />
+    );
+  }
+
+  render() {
+    const { bugs, filteredBugs } = this.props;
+
+    if (!bugs.bugs) {
       return <div>Fetching</div>;
     }
 
     return (
       <div className="App">
         <Header filteredBugs={filteredBugs} />
-        <div className="App-Body">
-          {groupByMetas ? (
-            this.metas()
-          ) : (
-            <Table
-              setMeta={setMeta}
-              setPriority={setPriority}
-              rows={filteredBugs}
-              filters={filters}
-            />
-          )}
-        </div>
+        <div className="App-Body">{this.renderPage()}</div>
         <div className="App-Footer">
           <div className="content">
             <a href="http://github.com/jasonLaster/firebugs">github</a>

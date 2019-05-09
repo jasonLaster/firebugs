@@ -48,11 +48,6 @@
   border-color: var(--neutral-2);
 }
 
-.meta-body .pure-table tr:hover td {
-  background: var(--neutral-1);
-  cursor: pointer;
-}
-
 .meta-body .dep {
   line-height: 30px;
 }

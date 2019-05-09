@@ -19,6 +19,11 @@ th {
   min-height: 30px;
 }
 
+.pure-table tr:hover td {
+  background: var(--neutral-1);
+  cursor: pointer;
+}
+
 .pure-table td {
   border-color: #e1e1e1;
 }
