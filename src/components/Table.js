@@ -1,5 +1,5 @@
 import React from 'react';
-import { BugIDLink } from './BugLink';
+import { BugIDLink, BugSummaryLink } from './BugLink';
 import { sortByPriority } from '../utils';
 
 import './Table.css';
@@ -19,7 +19,7 @@ function Row({ bug, setMeta, setPriority }) {
         <BugIDLink bug={bug} />
       </td>
       <td>
-        {formatSummary(bug.Summary)}
+        {<BugSummaryLink bug={bug} />}
         {bug.Metas.map(b => (
           <span
             key={b.BugID}
@@ -30,7 +30,11 @@ function Row({ bug, setMeta, setPriority }) {
           </span>
         ))}
       </td>
-      <td align="left" onClick={() => setPriority(bug.Priority)}>
+      <td
+        className={`priority ${bug.Priority}`}
+        align="left"
+        onClick={() => setPriority(bug.Priority)}
+      >
         {bug.Priority}
       </td>
     </tr>

@@ -15,8 +15,28 @@ th {
   font-weight: normal;
 }
 
+.pure-table tr {
+  min-height: 30px;
+}
+
 .pure-table td {
   border-color: #e1e1e1;
+}
+
+td.priority.P1 {
+  color: var(--red-5);
+}
+
+td.priority.P2 {
+  color: var(--cyan-6);
+}
+
+td.priority {
+  color: var(--neutral-5);
+}
+
+td.priority:hover {
+  cursor: pointer;
 }
 
 .bugs-table {

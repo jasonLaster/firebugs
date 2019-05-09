@@ -42,8 +42,12 @@ export default function Meta({ meta, bugsMap }) {
                   <td width="80px" align="left">
                     <BugIDLink bug={bug} />
                   </td>
-                  <td>{bug.Summary}</td>
-                  <td align="right">{bug.Priority}</td>
+                  <td>
+                    <BugSummaryLink bug={bug} />
+                  </td>
+                  <td className={`priority ${bug.Priority}`} align="right">
+                    {bug.Priority}
+                  </td>
                 </tr>
               ))}
             </tbody>
