@@ -1,0 +1,69 @@
+.App-Header {
+  border-top: 4px solid var(--primary-5);
+
+  filter: drop-shadow(1px 0px 4px var(--neutral-2));
+  z-index: 100;
+}
+
+.App-Header.metas .nav {
+  height: 80px;
+}
+
+.App-Header a {
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.App-Header a:hover {
+  cursor: pointer;
+}
+
+.App-Header .nav {
+  padding: 10px;
+  height: 130px;
+  background: white;
+}
+
+.App-Header h1 {
+  font-weight: normal;
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--primary-7);
+}
+
+.App-Header .links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neutral-3);
+}
+
+.App-Header .links a {
+  color: var(--neutral-6);
+}
+
+.App-Header .search-box {
+  width: 650px;
+  border: 1px solid var(--neutral-2);
+  background: white;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.search-box input {
+  width: calc(100% - 10px);
+}
+
+.search-box .search-field {
+  margin-top: 10px;
+}
+
+.search-field input {
+  line-height: 24px;
+  font-size: 14px;
+  padding-left: 5px;
+}
+.App-Header .gap {
+  height: 60px;
+}

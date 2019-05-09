@@ -2,6 +2,8 @@ import React from 'react';
 import { BugIDLink } from './BugLink';
 import { sortByPriority } from '../utils';
 
+import './Table.css';
+
 function formatSummary(summary) {
   // if (summary.match('Intermittent devtools')) {
   //   const test = summary.match(/^.*\/(.*)\|/)[1];
@@ -10,7 +12,7 @@ function formatSummary(summary) {
   return summary;
 }
 
-function Row({ bug, selectMeta }) {
+function Row({ bug, setMeta, setPriority }) {
   return (
     <tr>
       <td align="left">
@@ -22,24 +24,35 @@ function Row({ bug, selectMeta }) {
           <span
             key={b.BugID}
             className="meta"
-            onClick={() => selectMeta(b.Alias || b.BugID)}
+            onClick={() => setMeta(b.Alias || b.BugID)}
           >
             {b.Alias || b.BugID}
           </span>
         ))}
       </td>
-      <td align="left">{bug.Priority}</td>
+      <td align="left" onClick={() => setPriority(bug.Priority)}>
+        {bug.Priority}
+      </td>
     </tr>
   );
 }
 
-function SimpleTable({ classes, rows, selectMeta }) {
+function SimpleTable({ classes, rows, setMeta, setPriority }) {
+  if (rows.length == 0) {
+    return <h2 className="empty-results"> No results found</h2>;
+  }
+
   return (
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
         <tbody>
           {sortByPriority(rows).map(row => (
-            <Row key={row.BugID} bug={row} selectMeta={selectMeta} />
+            <Row
+              key={row.BugID}
+              bug={row}
+              setMeta={setMeta}
+              setPriority={setPriority}
+            />
           ))}
         </tbody>
       </table>

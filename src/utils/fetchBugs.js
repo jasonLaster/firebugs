@@ -56,43 +56,45 @@ async function fetchData() {
   }
 }
 
-function parse(localData) {
+async function parse() {
   try {
+    let localData = await localStorage.getItem('results');
     return JSON.parse(localData);
   } catch (e) {
     localStorage.clear();
-    return {};
+    return [];
   }
 }
 
 function formatResults(results) {
-  const bugs = {};
+  const map = {};
 
-  const metas = {};
+  const metas = [];
   for (const result of results) {
     if (isMeta(result)) {
-      metas[result.BugID] = result;
+      metas.push(result);
     }
   }
 
   for (const result of results) {
-    bugs[result.BugID] = result;
+    map[result.BugID] = result;
   }
 
   for (const result of results) {
     result.Metas = result.Blocks.split(', ')
-      .map(id => bugs[id])
+      .map(id => map[id])
       .filter(i => i);
   }
 
-  window.results = results;
+  const bugs = results;
   window.bugs = bugs;
-  return { bugs, results };
+  window.bugMap = map;
+
+  return { bugs, metas, bugsMap: map };
 }
 
 export async function getBugs() {
-  let localData = await localStorage.getItem('results');
-  const results = localData ? parse(localData) : [];
+  const results = await parse();
   const fetched = fetchData()
     .then(saveData)
     .then(formatResults);
