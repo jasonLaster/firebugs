@@ -16,9 +16,13 @@ body {
   overflow-y: scroll;
 }
 
+a {
+  text-decoration: none;
+}
+
 a.bugId {
   color: var(--neutral-10);
-  text-decoration: none;
+
   font-weight: 600;
 }
 
@@ -31,6 +35,11 @@ a.bugSummary {
 }
 .App-Footer .content {
   height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.App-Footer .content a {
+  color: var(--neutral-5);
 }
 
 body {
