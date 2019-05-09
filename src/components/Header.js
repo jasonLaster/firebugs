@@ -47,7 +47,7 @@ function FilterButton({ name, filter, updater, list, map }) {
       <MenuButton>
         <div className="label">{name}</div>
         <div aria-hidden className="button">
-          ▾
+          -
         </div>
       </MenuButton>
       <MenuList>
