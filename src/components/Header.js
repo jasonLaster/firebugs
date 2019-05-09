@@ -186,10 +186,7 @@ class Header extends React.Component {
               href="#"
               onClick={() => setPage('metas')}
             >
-              Meta
-            </a>
-            <a href="#" onClick={() => setPage('metas')}>
-              Release
+              Metas
             </a>
           </div>
           <h1>{this.getTitle()}</h1>
