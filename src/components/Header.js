@@ -115,10 +115,7 @@ class Header extends React.Component {
             type="text"
             ref={this.searchInput}
             placeholder="Search..."
-            onChange={e => {
-              debugger;
-              this.onSearch(e.target.value);
-            }}
+            onChange={e => this.onSearch(e.target.value)}
           />
         </div>
       </div>
