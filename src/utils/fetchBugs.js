@@ -59,7 +59,7 @@ async function fetchData() {
 async function parse() {
   try {
     let localData = await localStorage.getItem('results');
-    return JSON.parse(localData);
+    return JSON.parse(localData) || [];
   } catch (e) {
     localStorage.clear();
     return [];
