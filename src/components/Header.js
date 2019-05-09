@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { debounce, sortBy } from 'lodash';
-import { Link } from 'react-router-dom';
 
 import {
   Menu,
