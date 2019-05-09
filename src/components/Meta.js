@@ -18,6 +18,10 @@ export default function Meta({ meta, bugsMap, filteredIds }) {
     openBugs.filter(b => filteredIds.has(b.BugID))
   );
 
+  if (shownBugs.length == 0) {
+    return null;
+  }
+
   return (
     <div className="meta">
       <div className="meta-header">
