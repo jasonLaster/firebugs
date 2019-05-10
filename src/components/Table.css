@@ -35,6 +35,9 @@ td.priority.P1 {
 td.priority.P2 {
   color: var(--cyan-6);
 }
+td.priority.P3 {
+  color: var(--neutral-6);
+}
 
 td.priority {
   color: var(--neutral-5);
