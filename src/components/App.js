@@ -14,7 +14,10 @@ import './App.css';
 
 function parseParams() {
   const search = window.location.toString().match(/\?.*/);
-  const page = window.location.hash.match(/^(.*)(\?)?/)[1].slice(1, 100);
+  let page = 'bugs';
+  if (window.location.hash) {
+    page = window.location.hash.match(/^#(\w*)/)[1];
+  }
 
   if (!search) {
     return { page };
