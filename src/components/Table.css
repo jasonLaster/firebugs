@@ -94,3 +94,7 @@ td.priority:hover {
   white-space: nowrap;
   max-width: 810px;
 }
+
+.bugs-table .bug-alias {
+  font-weight: bold;
+}

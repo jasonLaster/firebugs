@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMeta } from '../utils';
 
 export function BugSummaryLink({ bug }) {
   return (
@@ -8,7 +9,7 @@ export function BugSummaryLink({ bug }) {
       rel="noopener noreferrer"
       href={`https://bugzilla.mozilla.org/${bug.BugID}`}
     >
-      {bug.Summary}
+      {bug.Summary}{' '}
     </a>
   );
 }

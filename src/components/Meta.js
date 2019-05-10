@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { sortByPriority } from '../utils';
+import { sortByPriority, isMeta } from '../utils';
 import { BugIDLink, BugSummaryLink } from './BugLink';
 
 import './Meta.css';
@@ -25,8 +25,8 @@ export default function Meta({ meta, bugsMap, filteredIds }) {
   return (
     <div className="meta">
       <div className="meta-header">
-        {meta.Alias ? <div className="alias">{meta.Alias}</div> : null}
         <div className="summary">
+          <span className="bug-alias">{isMeta(meta) ? meta.Alias : ''}</span>{' '}
           <BugSummaryLink bug={meta} />
         </div>
         <div className="progress">

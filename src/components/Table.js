@@ -1,6 +1,6 @@
 import React from 'react';
 import { BugIDLink, BugSummaryLink } from './BugLink';
-
+import { isMeta } from '../utils';
 import './Table.css';
 
 function formatSummary(summary) {
@@ -25,6 +25,7 @@ function Row({ bug, filters, setMeta, setPriority }) {
     <tr>
       <td>
         <div className="bug-summary">
+          <span className="bug-alias">{isMeta(bug) ? bug.Alias : ''}</span>{' '}
           <BugSummaryLink bug={bug} />
         </div>
         <div className="meta-list">
