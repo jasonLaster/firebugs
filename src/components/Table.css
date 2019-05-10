@@ -15,10 +15,6 @@ th {
   font-weight: normal;
 }
 
-.pure-table tr {
-  height: 60px;
-}
-
 .pure-table tr:hover td {
   background: var(--neutral-1);
   cursor: pointer;
