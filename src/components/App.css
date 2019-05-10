@@ -22,8 +22,6 @@ a {
 
 a.bugId {
   color: var(--neutral-10);
-
-  font-weight: 600;
 }
 
 a.bugSummary {

@@ -16,7 +16,7 @@ th {
 }
 
 .pure-table tr {
-  min-height: 30px;
+  height: 60px;
 }
 
 .pure-table tr:hover td {
@@ -56,10 +56,8 @@ td.priority:hover {
 }
 
 .bugs-table span.meta {
-  background: var(--primary-1);
   margin-left: 10px;
   border-radius: 4px;
-  border: 1px solid var(--primary-3);
   padding: 2px 4px;
   font-size: 12px;
   color: var(--primary-8);
@@ -67,11 +65,19 @@ td.priority:hover {
   white-space: nowrap;
 }
 
+.meta-list {
+  padding-top: 2px;
+  line-height: 24px;
+}
+
+.meta-list .meta:first-child {
+  margin-left: 0;
+}
+
 .bugs-table span.meta:hover {
   cursor: pointer;
-  background: var(--primary-3);
-  border-color: var(--primary-4);
   color: var(--primary-10);
+  border-color: var(--primary-2);
 }
 
 .empty-results {
@@ -79,4 +85,12 @@ td.priority:hover {
   text-align: center;
   color: var(--neutral-5);
   margin-top: 100px;
+}
+
+.bug-summary {
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 810px;
 }

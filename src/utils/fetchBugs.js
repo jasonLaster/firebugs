@@ -82,7 +82,12 @@ function formatResults(results) {
 
   for (const result of results) {
     result.Metas = result.Blocks.split(', ')
-      .map(id => map[id])
+      .map(id => {
+        const bug = map[id];
+        if (bug) {
+          return { ...bug, name: bug.Alias || bug.BugID };
+        }
+      })
       .filter(i => i);
   }
 

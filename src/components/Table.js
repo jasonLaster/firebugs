@@ -12,33 +12,32 @@ function formatSummary(summary) {
   return summary;
 }
 
+function Metas({ metas, setMeta }) {
+  return metas.map(b => (
+    <span key={b.BugID} className="meta" onClick={() => setMeta(b.name)}>
+      {b.name}
+    </span>
+  ));
+}
+
 function Row({ bug, filters, setMeta, setPriority }) {
-  const shownMetas = bug.Metas.filter(
-    meta => (meta.Alias || meta.BugID) != filters.meta
-  );
+  const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
   return (
     <tr>
-      <td align="left">
-        <BugIDLink bug={bug} />
-      </td>
       <td>
-        {<BugSummaryLink bug={bug} />}
-        {shownMetas.map(b => (
-          <span
-            key={b.BugID}
-            className="meta"
-            onClick={() => setMeta(b.Alias || b.BugID)}
-          >
-            {b.Alias || b.BugID}
-          </span>
-        ))}
+        <div className="bug-summary">
+          <BugSummaryLink bug={bug} />
+        </div>
+        <div className="meta-list">
+          <Metas metas={shownMetas} setMeta={setMeta} />
+        </div>
       </td>
       <td
         className={`priority ${bug.Priority}`}
         align="left"
         onClick={() => setPriority(bug.Priority)}
       >
-        {bug.Priority}
+        <div>{bug.Priority}</div>
       </td>
     </tr>
   );
