@@ -14,8 +14,10 @@ import './App.css';
 
 function parseParams() {
   const search = window.location.toString().match(/\?.*/);
+  const page = window.location.hash.match(/^(.*)(\?)?/)[1].slice(1, 100);
+
   if (!search) {
-    return {};
+    return { page };
   }
 
   const params = new URLSearchParams(search[0]);
@@ -23,6 +25,7 @@ function parseParams() {
     priority: params.get('priority'),
     meta: params.get('meta'),
     keyword: params.get('keyword'),
+    page,
     // search: params.get('search')
     //   ? decodeURIComponent(params.get('search'))
     //   : '',
