@@ -114,11 +114,6 @@ class App extends React.Component {
       <div className="App">
         <Header filteredBugs={filteredBugs} />
         <div className="App-Body">{this.renderPage()}</div>
-        <div className="App-Footer">
-          <div className="content">
-            <a href="http://github.com/jasonLaster/firebugs">github</a>
-          </div>
-        </div>
       </div>
     );
   }
