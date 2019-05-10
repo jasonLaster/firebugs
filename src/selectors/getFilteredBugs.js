@@ -1,5 +1,6 @@
 import Fuse from 'fuse.js';
-import { isMeta } from '../utils';
+import { isMeta, sortByPriority } from '../utils';
+import { mapValues, groupBy, sortBy } from 'lodash';
 
 function priorityValue(priority) {
   if (!priority) {
@@ -24,7 +25,7 @@ function doSearch(results, search) {
   return fuse.search(search.trim());
 }
 
-export function getFilteredBugs(state) {
+function filterBugs(state) {
   const {
     filters: { priority, keyword, search, meta, page },
     bugs: { bugs, metas },
@@ -53,4 +54,18 @@ export function getFilteredBugs(state) {
   }
 
   return filtered.filter(bug => bug.Priority === priorityValue(priority));
+}
+
+// Sort by priority and then by first meta
+function sortBugs(bugs) {
+  const ps = mapValues(groupBy(bugs, bug => bug.Priority), bs =>
+    sortBy(bs, b => b.Metas.map(m => m.Alias || `x${m.BugID}`)[0])
+  );
+  return [].concat(ps.P1, ps.P2, ps.P3, ps.P4, ps.P5, ps[' --']).filter(i => i);
+}
+
+export function getFilteredBugs(state) {
+  let filtered = filterBugs(state);
+  filtered = sortBugs(filtered);
+  return filtered;
 }

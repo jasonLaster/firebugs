@@ -1,6 +1,5 @@
 import React from 'react';
 import { BugIDLink, BugSummaryLink } from './BugLink';
-import { sortByPriority } from '../utils';
 
 import './Table.css';
 
@@ -52,7 +51,7 @@ function SimpleTable({ classes, rows, filters, setMeta, setPriority }) {
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
         <tbody>
-          {sortByPriority(rows).map(row => (
+          {rows.map(row => (
             <Row
               key={row.BugID}
               bug={row}
