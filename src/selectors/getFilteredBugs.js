@@ -37,6 +37,10 @@ function filterBugs(state) {
     filtered = filtered.filter(b => b.Whiteboard.includes('debugger-mvp'));
   }
 
+  if (keyword != 'meta') {
+    filtered = filtered.filter(b => !isMeta(b));
+  }
+
   if (keyword) {
     filtered = filtered.filter(b => b.Keywords.includes(keyword));
   }
