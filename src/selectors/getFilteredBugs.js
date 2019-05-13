@@ -61,7 +61,7 @@ function filterBugs(state) {
 }
 
 // Sort by priority and then by first meta
-function sortBugs(bugs) {
+function sortBugs(state, bugs) {
   const ps = mapValues(groupBy(bugs, bug => bug.Priority), bs =>
     sortBy(bs, b => b.Metas.map(m => m.Alias || `x${m.BugID}`)[0])
   );
@@ -70,6 +70,6 @@ function sortBugs(bugs) {
 
 export function getFilteredBugs(state) {
   let filtered = filterBugs(state);
-  filtered = sortBugs(filtered);
+  filtered = sortBugs(state, filtered);
   return filtered;
 }

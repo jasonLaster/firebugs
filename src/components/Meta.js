@@ -52,7 +52,7 @@ export default function Meta({
       <div>
         <div className="meta-body">
           <Table
-            rows={openBugs}
+            rows={shownBugs}
             setMeta={setMeta}
             setPriority={setPriority}
             filters={{ ...filters, meta: meta.Alias || meta.BugID }}
