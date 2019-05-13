@@ -37,26 +37,9 @@
   margin-left: 10px;
 }
 
-.meta-body {
-}
-
-.meta-body .pure-table {
+.meta-body .pure-table.pure-table-horizontal {
   border: none;
 }
-
-.meta-body .pure-table td {
-  border-color: var(--neutral-2);
-}
-
-.meta-body .dep {
-  line-height: 30px;
-}
-
-.meta-body .dep .summary {
-  margin-left: 10px;
-  text-overflow: clip;
-}
-
 .meta-footer .progress-bar {
   width: 100%;
   background: var(--neutral-2);

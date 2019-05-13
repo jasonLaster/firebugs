@@ -54,6 +54,9 @@ class App extends React.Component {
     const {
       bugs: { bugsMap, metas },
       filteredBugs,
+      filters,
+      setMeta,
+      setPriority,
     } = this.props;
 
     const inProgress = metas.filter(meta => meta.Priority === 'P2');
@@ -66,6 +69,9 @@ class App extends React.Component {
           meta={meta}
           bugsMap={bugsMap}
           filteredIds={filteredIds}
+          setMeta={setMeta}
+          setPriority={setPriority}
+          filters={filters}
         />
       )),
       <div key="backlog" className="backlog" />,
@@ -75,6 +81,9 @@ class App extends React.Component {
           meta={meta}
           bugsMap={bugsMap}
           filteredIds={filteredIds}
+          setMeta={setMeta}
+          setPriority={setPriority}
+          filters={filters}
         />
       )),
     ];

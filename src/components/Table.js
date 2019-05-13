@@ -3,14 +3,6 @@ import { BugIDLink, BugSummaryLink } from './BugLink';
 import { isMeta } from '../utils';
 import './Table.css';
 
-function formatSummary(summary) {
-  // if (summary.match('Intermittent devtools')) {
-  //   const test = summary.match(/^.*\/(.*)\|/)[1];
-  //   return `Intermittent ${test}`;
-  // }
-  return summary;
-}
-
 function Metas({ metas, setMeta }) {
   return metas.map(b => (
     <span key={b.BugID} className="meta" onClick={() => setMeta(b.name)}>
@@ -43,7 +35,7 @@ function Row({ bug, filters, setMeta, setPriority }) {
   );
 }
 
-function SimpleTable({ classes, rows, filters, setMeta, setPriority }) {
+function SimpleTable({ rows, filters, setMeta, setPriority }) {
   if (rows.length == 0) {
     return <h2 className="empty-results"> No results found</h2>;
   }

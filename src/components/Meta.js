@@ -2,13 +2,21 @@ import React from 'react';
 
 import { sortByPriority, isMeta } from '../utils';
 import { BugIDLink, BugSummaryLink } from './BugLink';
+import Table from './Table';
 
 import './Meta.css';
 
 const newBugHref = id =>
   `https://bugzilla.mozilla.org/enter_bug.cgi?format=__default__&product=DevTools&component=Debugger&blocked=${id}`;
 
-export default function Meta({ meta, bugsMap, filteredIds }) {
+export default function Meta({
+  meta,
+  bugsMap,
+  filteredIds,
+  filters,
+  setMeta,
+  setPriority,
+}) {
   const deps = meta.DependsOn.split(', ');
   const openBugs = deps.map(dep => bugsMap[dep]).filter(i => i);
   const completeCount = deps.length - openBugs.length;
@@ -43,23 +51,12 @@ export default function Meta({ meta, bugsMap, filteredIds }) {
       </div>
       <div>
         <div className="meta-body">
-          <table className="pure-table pure-table-horizontal">
-            <tbody>
-              {shownBugs.map(bug => (
-                <tr key={bug.BugID} className="dep">
-                  <td width="80px" align="left">
-                    <BugIDLink bug={bug} />
-                  </td>
-                  <td>
-                    <BugSummaryLink bug={bug} />
-                  </td>
-                  <td className={`priority ${bug.Priority}`} align="right">
-                    {bug.Priority}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table
+            rows={openBugs}
+            setMeta={setMeta}
+            setPriority={setPriority}
+            filters={{ ...filters, meta: meta.Alias || meta.BugID }}
+          />
         </div>
         <div className="meta-footer">
           <div className="progress-bar">
