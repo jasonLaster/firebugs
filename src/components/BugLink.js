@@ -1,6 +1,19 @@
 import React from 'react';
 import { isMeta } from '../utils';
 
+export function BugLink({ bug, children }) {
+  return (
+    <a
+      target="_blank"
+      className="bugSummary"
+      rel="noopener noreferrer"
+      href={`https://bugzilla.mozilla.org/${bug.BugID}`}
+    >
+      {children}
+    </a>
+  );
+}
+
 export function BugSummaryLink({ bug }) {
   return (
     <a

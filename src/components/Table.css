@@ -94,3 +94,22 @@ td.priority:hover {
 .bugs-table .bug-alias {
   font-weight: bold;
 }
+
+.test-error {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--neutral-7);
+}
+
+.test-file {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.fail-count {
+  color: var(--neutral-6);
+}
+
+.fail-count.important {
+  color: var(--cyan-6);
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BugIDLink, BugSummaryLink } from './BugLink';
+import { BugIDLink, BugSummaryLink, BugLink } from './BugLink';
 import { isMeta } from '../utils';
 import './Table.css';
 
@@ -11,6 +11,22 @@ function Metas({ metas, setMeta }) {
   ));
 }
 
+function formatIntermittent(bug) {
+  const match = bug.Summary.match(/Intermittent (.*) \| (.*) -/i);
+  if (!match) {
+    return bug.Summary;
+  }
+  const [, testPath, error] = match;
+  const test = testPath.split(/\//).slice(-1)[0];
+  return (
+    <div>
+      <div className="test-file">{test}</div>
+      <div className="test-error">{error} </div>
+    </div>
+  );
+  // return bug.Summary;
+}
+
 function Row({ bug, filters, setMeta, setPriority }) {
   const showIntermittents = filters.page == 'intermittents';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
@@ -19,13 +35,23 @@ function Row({ bug, filters, setMeta, setPriority }) {
       <td>
         <div className="bug-summary">
           <span className="bug-alias">{isMeta(bug) ? bug.Alias : ''}</span>{' '}
-          <BugSummaryLink bug={bug} />
+          <BugLink bug={bug}>
+            {showIntermittents ? formatIntermittent(bug) : bug.Summary}{' '}
+          </BugLink>
         </div>
         <div className="meta-list">
           <Metas metas={shownMetas} setMeta={setMeta} />
         </div>
       </td>
-      {showIntermittents ? <td> {bug.failCount} </td> : null}
+      {showIntermittents ? (
+        <td
+          className={`fail-count ${
+            Number(bug.failCount) > 20 ? 'important' : ''
+          }`}
+        >
+          {bug.failCount}{' '}
+        </td>
+      ) : null}
       <td
         className={`priority ${bug.Priority}`}
         align="left"
