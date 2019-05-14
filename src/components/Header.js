@@ -197,6 +197,13 @@ class Header extends React.Component {
             >
               Release
             </a>
+            <a
+              className={page === 'intermittents' ? 'selected' : ''}
+              href="#intermittents"
+              onClick={() => setPage('intermittents')}
+            >
+              Intermittents
+            </a>
           </div>
           <h1>{this.getTitle()}</h1>
           {this.searchBox()}

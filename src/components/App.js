@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 
   async refresh() {
-    this.props.fetchBugs();
+    await this.props.fetchBugs();
   }
 
   updateResults({ results, bugs }) {

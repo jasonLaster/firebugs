@@ -12,6 +12,7 @@ function Metas({ metas, setMeta }) {
 }
 
 function Row({ bug, filters, setMeta, setPriority }) {
+  const showIntermittents = filters.page == 'intermittents';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
   return (
     <tr>
@@ -24,6 +25,7 @@ function Row({ bug, filters, setMeta, setPriority }) {
           <Metas metas={shownMetas} setMeta={setMeta} />
         </div>
       </td>
+      {showIntermittents ? <td> {bug.failCount} </td> : null}
       <td
         className={`priority ${bug.Priority}`}
         align="left"

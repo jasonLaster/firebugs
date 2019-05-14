@@ -1,4 +1,5 @@
 import { debounce } from 'lodash';
+import { getIntermittents } from '../reducers/bugs';
 import { getBugs } from '../utils/fetchBugs';
 
 export function setPriority(priority) {
@@ -32,9 +33,11 @@ export function setFilter(value) {
 export function fetchBugs() {
   return async function(dispatch) {
     const { bugs, metas, fetched } = await getBugs();
-    fetched.then(res => dispatch(updateResults(res)));
-
     dispatch(updateResults({ bugs, metas }));
+
+    const res = await fetched;
+    dispatch(updateResults(res));
+    dispatch(fetchIntermittents());
   };
 }
 
@@ -43,5 +46,20 @@ function updateResults(value) {
 }
 
 export function setPage(page) {
-  return { type: 'SET_PAGE', page };
+  return async function(dispatch, getState) {
+    dispatch({ type: 'SET_PAGE', page });
+  };
+}
+
+export function fetchIntermittents() {
+  return async function(dispatch, getState) {
+    const intermittents = getIntermittents(getState());
+    const ids = intermittents.map(i => i.BugID).join(',');
+    const results = await (await fetch(
+      `.netlify/functions/intermittents?bugs=${ids}`
+    )).json();
+
+    localStorage.setItem('intermittents', JSON.stringify(results));
+    dispatch({ type: 'SET_INTERMITTENTS', value: { intermittents: results } });
+  };
 }

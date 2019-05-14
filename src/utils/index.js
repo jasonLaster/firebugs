@@ -9,3 +9,7 @@ export function sortByPriority(bugs) {
 export function isMeta(bug) {
   return bug.Keywords.includes('meta');
 }
+
+export function isIntermittent(bug) {
+  return bug.Keywords.includes('intermittent');
+}

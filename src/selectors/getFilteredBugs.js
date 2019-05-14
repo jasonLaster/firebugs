@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
-import { isMeta, sortByPriority } from '../utils';
-import { mapValues, groupBy, sortBy } from 'lodash';
+import { isMeta, sortByPriority, isIntermittent } from '../utils';
+import { mapValues, groupBy, sortBy, orderBy } from 'lodash';
 
 function priorityValue(priority) {
   if (!priority) {
@@ -25,16 +25,18 @@ function doSearch(results, search) {
   return fuse.search(search.trim());
 }
 
-function filterBugs(state) {
+function filterBugs(state, filtered) {
   const {
     filters: { priority, keyword, search, meta, page },
-    bugs: { bugs, metas },
+    bugs: { metas, intermittents },
   } = state;
-
-  let filtered = bugs;
 
   if (page === 'releases') {
     filtered = filtered.filter(b => b.Whiteboard.includes('debugger-mvp'));
+  }
+
+  if (page === 'intermittents') {
+    filtered = filtered.filter(b => isIntermittent(b));
   }
 
   if (keyword != 'meta') {
@@ -62,14 +64,34 @@ function filterBugs(state) {
 
 // Sort by priority and then by first meta
 function sortBugs(state, bugs) {
+  if (state.filters.page == 'intermittents') {
+    return orderBy(bugs, b => b.failCount, ['desc']);
+  }
+
   const ps = mapValues(groupBy(bugs, bug => bug.Priority), bs =>
     sortBy(bs, b => b.Metas.map(m => m.Alias || `x${m.BugID}`)[0])
   );
   return [].concat(ps.P1, ps.P2, ps.P3, ps.P4, ps.P5, ps[' --']).filter(i => i);
 }
 
+function formatBugs(state) {
+  const {
+    bugs: { bugs, intermittents },
+  } = state;
+
+  let filtered = [];
+  for (const bug of bugs) {
+    const int = intermittents[bug.BugID];
+    filtered.push({ ...bug, failCount: int || 0 });
+  }
+
+  return filtered;
+}
+
 export function getFilteredBugs(state) {
-  let filtered = filterBugs(state);
+  let filtered = formatBugs(state);
+  filtered = filterBugs(state, filtered);
   filtered = sortBugs(state, filtered);
+  window.filtered = filtered;
   return filtered;
 }
