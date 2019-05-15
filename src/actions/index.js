@@ -10,6 +10,10 @@ export function setKeyword(keyword) {
   return setFilter({ keyword });
 }
 
+export function setType(type) {
+  return setFilter({ type });
+}
+
 export function setMeta(meta) {
   return async function(dispatch, getState) {
     if (getState().filters.meta == meta) {

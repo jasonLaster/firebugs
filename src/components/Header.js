@@ -14,6 +14,7 @@ import {
 import './Header.css';
 
 const priorities = ['P1', 'P2', 'P3', 'P4', 'P5', 'None'];
+const types = ['defect', 'enhancement', 'task'];
 
 function identityMap(list) {
   const map = {};
@@ -29,6 +30,12 @@ const keywordMap = {
   meta: 'Metas',
   first: 'Good First Bugs',
   'intermittent-failure': 'Intermittents',
+};
+
+const typeMap = {
+  defect: 'Bug',
+  enhancement: 'Enhancement',
+  task: 'Task',
 };
 const keywords = Object.keys(keywordMap);
 
@@ -78,7 +85,8 @@ class Header extends React.Component {
       setSearch,
       setPage,
       setMeta,
-      filters: { keyword, priority, page, meta },
+      setType,
+      filters: { keyword, priority, page, meta, type },
       bugs: { metas },
     } = this.props;
 
@@ -90,6 +98,14 @@ class Header extends React.Component {
     return (
       <div className="search-box">
         <div className="filters">
+          <FilterButton
+            name="Type"
+            updater={setType}
+            filter={type}
+            list={types}
+            map={typeMap}
+          />
+
           <FilterButton
             name="Priority"
             updater={setPriority}

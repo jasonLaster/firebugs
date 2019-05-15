@@ -27,7 +27,7 @@ function doSearch(results, search) {
 
 function filterBugs(state, filtered) {
   const {
-    filters: { priority, keyword, search, meta, page },
+    filters: { priority, keyword, search, meta, page, type },
     bugs: { metas, intermittents },
   } = state;
 
@@ -53,6 +53,10 @@ function filterBugs(state, filtered) {
 
   if (meta) {
     filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
+  }
+
+  if (type) {
+    filtered = filtered.filter(bug => bug.Type == type);
   }
 
   if (!priority) {

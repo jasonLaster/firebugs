@@ -17,7 +17,8 @@ function createData(
   Blocks,
   DependsOn,
   Whiteboard,
-  Keywords
+  Keywords,
+  Type
 ) {
   return {
     BugID,
@@ -35,6 +36,7 @@ function createData(
     DependsOn,
     Whiteboard,
     Keywords,
+    Type,
   };
 }
 
