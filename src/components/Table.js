@@ -3,6 +3,8 @@ import { BugIDLink, BugSummaryLink, BugLink } from './BugLink';
 import { isMeta } from '../utils';
 import './Table.css';
 
+import moment from 'moment';
+
 function Metas({ metas, setMeta }) {
   return metas.map(b => (
     <span key={b.BugID} className="meta" onClick={() => setMeta(b.name)}>
@@ -55,12 +57,16 @@ function Row({ bug, filters, setMeta, setPriority }) {
       ) : null}
 
       {releasesPage ? <td className={`assignee `}>{bug.Assignee} </td> : null}
-      <td
-        className={`priority ${bug.Priority}`}
-        align="left"
-        onClick={() => setPriority(bug.Priority)}
-      >
-        <div>{bug.Priority}</div>
+      <td align="right">
+        <div
+          onClick={() => setPriority(bug.Priority)}
+          className={`priority ${bug.Priority}`}
+        >
+          {bug.Priority}
+        </div>
+        <div className="changed">
+          {moment(bug.Changed, 'YYYYMMDD').fromNow()}
+        </div>
       </td>
     </tr>
   );

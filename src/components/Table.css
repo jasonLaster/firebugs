@@ -17,29 +17,31 @@ th {
 
 .pure-table tr:hover td {
   background: var(--neutral-1);
-  cursor: pointer;
 }
 
 .pure-table td {
   border-color: #e1e1e1;
 }
 
-td.priority.P1 {
+.priority.P1 {
   color: var(--red-5);
 }
 
-td.priority.P2 {
+.priority.P2 {
   color: var(--cyan-6);
 }
-td.priority.P3 {
+.priority.P3 {
   color: var(--neutral-6);
 }
 
-td.priority {
+.priority {
   color: var(--neutral-5);
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 4px;
 }
 
-td.priority:hover {
+.priority:hover {
   cursor: pointer;
 }
 
@@ -88,7 +90,7 @@ td.priority:hover {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 810px;
+  max-width: 770px;
 }
 
 .bugs-table .bug-alias {
@@ -117,4 +119,9 @@ td.priority:hover {
 td.assignee {
   color: var(--neutral-6);
   font-size: 14px;
+}
+
+.changed {
+  font-size: 12px;
+  color: var(--neutral-4);
 }
