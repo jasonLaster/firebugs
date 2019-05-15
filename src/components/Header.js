@@ -15,6 +15,13 @@ import './Header.css';
 
 const priorities = ['P1', 'P2', 'P3', 'P4', 'P5', 'None'];
 const types = ['defect', 'enhancement', 'task'];
+const changedList = ['today', 'week', 'month', 'stale'];
+const changedMap = {
+  today: 'Today',
+  week: 'This Week',
+  month: 'This Month',
+  stale: '6+ Months',
+};
 
 function identityMap(list) {
   const map = {};
@@ -86,7 +93,8 @@ class Header extends React.Component {
       setPage,
       setMeta,
       setType,
-      filters: { keyword, priority, page, meta, type },
+      setChanged,
+      filters: { keyword, priority, page, meta, type, changed },
       bugs: { metas },
     } = this.props;
 
@@ -133,6 +141,13 @@ class Header extends React.Component {
             list={metaList}
             map={metasMap}
           />
+          <FilterButton
+            name="Changed"
+            updater={setChanged}
+            filter={changed}
+            list={changedList}
+            map={changedMap}
+          />
         </div>
         <div className="search-field">
           <input
@@ -149,7 +164,7 @@ class Header extends React.Component {
   getTitle() {
     const {
       setPage,
-      filters: { page, priority, keyword, meta },
+      filters: { page, priority, keyword, meta, changed },
       bugs: { metas, bugs },
       filteredBugs,
     } = this.props;

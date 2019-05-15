@@ -29,6 +29,7 @@ function parseParams() {
     meta: params.get('meta'),
     keyword: params.get('keyword'),
     type: params.get('type'),
+    changed: params.get('changed'),
     page,
     // search: params.get('search')
     //   ? decodeURIComponent(params.get('search'))

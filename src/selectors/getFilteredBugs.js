@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
 import { isMeta, sortByPriority, isIntermittent } from '../utils';
 import { mapValues, groupBy, sortBy, orderBy } from 'lodash';
-
+import moment from 'moment';
 function priorityValue(priority) {
   if (!priority) {
     return null;
@@ -27,7 +27,7 @@ function doSearch(results, search) {
 
 function filterBugs(state, filtered) {
   const {
-    filters: { priority, keyword, search, meta, page, type },
+    filters: { priority, keyword, search, meta, page, type, changed },
     bugs: { metas, intermittents },
   } = state;
 
@@ -51,6 +51,20 @@ function filterBugs(state, filtered) {
 
   if (search !== '') {
     filtered = doSearch(filtered, search);
+  }
+
+  if (changed) {
+    const map = {
+      today: moment().subtract(1, 'days'),
+      week: moment().subtract(7, 'days'),
+      month: moment().subtract(1, 'months'),
+      stale: moment().subtract(6, 'months'),
+    };
+    if (changed == 'stale') {
+      filtered = filtered.filter(b => moment(b.Changed) < map.stale);
+    } else {
+      filtered = filtered.filter(b => moment(b.Changed) > map[changed]);
+    }
   }
 
   if (meta) {

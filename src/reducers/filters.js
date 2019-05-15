@@ -4,10 +4,11 @@ const initialState = {
   meta: null,
   search: '',
   type: null,
+  changed: null,
   page: 'bugs',
 };
 
-function updateUrl({ page, keyword, meta, search, priority, type }) {
+function updateUrl({ page, keyword, meta, search, priority, type, changed }) {
   let parts = [];
 
   if (keyword) {
@@ -20,6 +21,9 @@ function updateUrl({ page, keyword, meta, search, priority, type }) {
 
   if (type) {
     parts.push(`type=${encodeURIComponent(type)}`);
+  }
+  if (changed) {
+    parts.push(`changed=${encodeURIComponent(changed)}`);
   }
 
   // if (search) {
