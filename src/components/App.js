@@ -90,6 +90,44 @@ class App extends React.Component {
     ];
   }
 
+  releases() {
+    const {
+      bugs: { bugsMap, metas },
+      filteredBugs,
+      filters,
+      setMeta,
+      setPriority,
+    } = this.props;
+
+    const inProgress = filteredBugs.filter(meta => meta.Status == 'ASSIGNED');
+    const backlog = filteredBugs.filter(meta => meta.Status !== 'ASSIGNED');
+
+    return (
+      <div className="releases-page">
+        {inProgress.length > 0 ? (
+          <div className="page-header">IN PROGRESS</div>
+        ) : null}
+        {inProgress.length > 0 ? (
+          <Table
+            setMeta={setMeta}
+            setPriority={setPriority}
+            rows={inProgress}
+            filters={filters}
+          />
+        ) : null}
+        {backlog.length > 0 ? <div className="page-header">PLANNED</div> : null}
+        {backlog.length > 0 ? (
+          <Table
+            setMeta={setMeta}
+            setPriority={setPriority}
+            rows={backlog}
+            filters={filters}
+          />
+        ) : null}
+      </div>
+    );
+  }
+
   renderPage() {
     const {
       filteredBugs,
@@ -101,6 +139,10 @@ class App extends React.Component {
 
     if (filters.page == 'metas') {
       return this.metas();
+    }
+
+    if (filters.page == 'releases') {
+      return this.releases();
     }
 
     return (

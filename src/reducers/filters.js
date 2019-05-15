@@ -3,7 +3,7 @@ const initialState = {
   keyword: null,
   meta: null,
   search: '',
-  type: 'defect',
+  type: null,
   page: 'bugs',
 };
 

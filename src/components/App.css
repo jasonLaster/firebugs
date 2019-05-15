@@ -112,3 +112,12 @@ body {
   background: var(--primary-3);
   height: 1px;
 }
+
+
+.page-header {
+    font-size: 14px;
+    color: var(--neutral-4);
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold
+}
