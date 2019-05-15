@@ -52,7 +52,11 @@ function filterBugs(state, filtered) {
   }
 
   if (meta) {
-    filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
+    if (meta === 'none') {
+      filtered = filtered.filter(bug => bug.Metas.length == 0);
+    } else {
+      filtered = filtered.filter(bug => bug.Metas.find(m => m.Alias === meta));
+    }
   }
 
   if (type) {

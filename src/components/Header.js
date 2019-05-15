@@ -90,10 +90,15 @@ class Header extends React.Component {
       bugs: { metas },
     } = this.props;
 
-    const metaList = sortBy(metas, m => m.Alias || `x${m.BugID}`).map(
-      m => m.Alias || m.BugID
-    );
+    const metaList = [
+      'none',
+      ...sortBy(metas, m => m.Alias || `x${m.BugID}`).map(
+        m => m.Alias || m.BugID
+      ),
+    ];
+
     const metasMap = identityMap(metaList);
+    metasMap.none = 'None';
 
     return (
       <div className="search-box">
@@ -157,16 +162,20 @@ class Header extends React.Component {
 
     let term = '';
 
-    if (priority) {
-      if (priority == 'None') {
-        term = 'un-prioritized';
+    if (meta) {
+      if (meta == 'none') {
+        term += ' unlabeled';
       } else {
-        term = priority;
+        term += ` ${meta}`;
       }
     }
 
-    if (meta) {
-      term += ` ${meta}`;
+    if (priority) {
+      if (priority == 'None') {
+        term += ' un-prioritized';
+      } else {
+        term += ` ${priority}`;
+      }
     }
 
     if (keyword) {
