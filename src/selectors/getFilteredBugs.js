@@ -73,7 +73,10 @@ function sortBugs(state, bugs) {
   }
 
   const ps = mapValues(groupBy(bugs, bug => bug.Priority), bs =>
-    sortBy(bs, b => b.Metas.map(m => m.Alias || `x${m.BugID}`)[0])
+    sortBy(bs, [
+      b => b.Metas.map(m => m.Alias || `x${m.BugID}`)[0],
+      b => b.Assignee,
+    ])
   );
   return [].concat(ps.P1, ps.P2, ps.P3, ps.P4, ps.P5, ps[' --']).filter(i => i);
 }

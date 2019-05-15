@@ -113,3 +113,8 @@ td.priority:hover {
 .fail-count.important {
   color: var(--cyan-6);
 }
+
+td.assignee {
+  color: var(--neutral-6);
+  font-size: 14px;
+}

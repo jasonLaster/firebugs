@@ -29,6 +29,7 @@ function formatIntermittent(bug) {
 
 function Row({ bug, filters, setMeta, setPriority }) {
   const showIntermittents = filters.page == 'intermittents';
+  const releasesPage = filters.page == 'releases';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
   return (
     <tr>
@@ -52,6 +53,8 @@ function Row({ bug, filters, setMeta, setPriority }) {
           {bug.failCount}{' '}
         </td>
       ) : null}
+
+      {releasesPage ? <td className={`assignee `}>{bug.Assignee} </td> : null}
       <td
         className={`priority ${bug.Priority}`}
         align="left"
