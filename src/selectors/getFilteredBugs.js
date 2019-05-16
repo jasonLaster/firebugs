@@ -45,6 +45,10 @@ function filterBugs(state, filtered) {
     filtered = filtered.filter(b => !isMeta(b));
   }
 
+  if (keyword != 'intermittent-failure' && page !== 'intermittents') {
+    filtered = filtered.filter(b => !isIntermittent(b));
+  }
+
   if (keyword) {
     filtered = filtered.filter(b => b.Keywords.includes(keyword));
   }
