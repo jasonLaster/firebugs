@@ -96,6 +96,10 @@ function sortBugs(state, bugs) {
     return orderBy(bugs, b => b.Changed, ['desc']);
   }
 
+  if (state.filters.keyword == 'meta') {
+    return orderBy(bugs, b => b.metaCount, ['desc']);
+  }
+
   if (state.filters.page == 'intermittents') {
     return orderBy(bugs, b => b.failCount, ['desc']);
   }
@@ -116,8 +120,13 @@ function formatBugs(state) {
 
   let filtered = [];
   for (const bug of bugs) {
-    const int = intermittents[bug.BugID];
-    filtered.push({ ...bug, failCount: int || 0 });
+    const failCount = intermittents[bug.BugID] || 0;
+
+    const metaCount = isMeta(bug)
+      ? bugs.filter(b => b.Metas.map(m => +m.BugID).includes(+bug.BugID)).length
+      : 0;
+
+    filtered.push({ ...bug, failCount, metaCount });
   }
 
   return filtered;

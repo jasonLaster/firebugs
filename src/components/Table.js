@@ -32,6 +32,7 @@ function formatIntermittent(bug) {
 function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
   const showIntermittents = filters.page == 'intermittents';
   const releasesPage = filters.page == 'releases';
+  const showMetas = filters.keyword == 'meta';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
   return (
     <tr>
@@ -53,6 +54,12 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
           }`}
         >
           {bug.failCount}{' '}
+        </td>
+      ) : null}
+
+      {showMetas ? (
+        <td className={`meta-count ${bug.metaCount > 20 ? 'important' : ''}`}>
+          {bug.metaCount}
         </td>
       ) : null}
 
