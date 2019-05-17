@@ -29,7 +29,7 @@ function formatIntermittent(bug) {
   // return bug.Summary;
 }
 
-function Row({ bug, filters, setMeta, setPriority }) {
+function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
   const showIntermittents = filters.page == 'intermittents';
   const releasesPage = filters.page == 'releases';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
@@ -64,7 +64,7 @@ function Row({ bug, filters, setMeta, setPriority }) {
         >
           {bug.Priority}
         </div>
-        <div className="changed">
+        <div className="changed" onClick={() => setSortBy('changed')}>
           {moment(bug.Changed, 'YYYYMMDD').fromNow()}
         </div>
       </td>
@@ -72,11 +72,12 @@ function Row({ bug, filters, setMeta, setPriority }) {
   );
 }
 
-function SimpleTable({ rows, filters, setMeta, setPriority }) {
+function SimpleTable({ rows, filters, setMeta, setPriority, setSortBy }) {
   if (rows.length == 0) {
     return <h2 className="empty-results"> No results found</h2>;
   }
 
+  debugger;
   return (
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">
@@ -88,6 +89,7 @@ function SimpleTable({ rows, filters, setMeta, setPriority }) {
               filters={filters}
               setMeta={setMeta}
               setPriority={setPriority}
+              setSortBy={setSortBy}
             />
           ))}
         </tbody>

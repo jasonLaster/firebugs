@@ -5,10 +5,20 @@ const initialState = {
   search: '',
   type: null,
   changed: null,
+  sortBy: null,
   page: 'bugs',
 };
 
-function updateUrl({ page, keyword, meta, search, priority, type, changed }) {
+function updateUrl({
+  page,
+  keyword,
+  meta,
+  search,
+  priority,
+  type,
+  changed,
+  sortBy,
+}) {
   let parts = [];
 
   if (keyword) {
@@ -24,6 +34,9 @@ function updateUrl({ page, keyword, meta, search, priority, type, changed }) {
   }
   if (changed) {
     parts.push(`changed=${encodeURIComponent(changed)}`);
+  }
+  if (sortBy) {
+    parts.push(`sortBy=${encodeURIComponent(sortBy)}`);
   }
 
   // if (search) {

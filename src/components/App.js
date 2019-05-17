@@ -30,6 +30,7 @@ function parseParams() {
     keyword: params.get('keyword'),
     type: params.get('type'),
     changed: params.get('changed'),
+    sortBy: params.get('sortBy'),
     page,
     // search: params.get('search')
     //   ? decodeURIComponent(params.get('search'))
@@ -98,6 +99,7 @@ class App extends React.Component {
       filters,
       setMeta,
       setPriority,
+      setSortBy,
     } = this.props;
 
     const inProgress = filteredBugs.filter(meta => meta.Status == 'ASSIGNED');
@@ -112,6 +114,7 @@ class App extends React.Component {
           <Table
             setMeta={setMeta}
             setPriority={setPriority}
+            setSortBy={setSortBy}
             rows={inProgress}
             filters={filters}
           />
@@ -121,6 +124,7 @@ class App extends React.Component {
           <Table
             setMeta={setMeta}
             setPriority={setPriority}
+            setSortBy={setSortBy}
             rows={backlog}
             filters={filters}
           />
@@ -134,6 +138,7 @@ class App extends React.Component {
       filteredBugs,
       setMeta,
       setPriority,
+      setSortBy,
       bugs: { bugs },
       filters,
     } = this.props;
@@ -150,6 +155,7 @@ class App extends React.Component {
       <Table
         setMeta={setMeta}
         setPriority={setPriority}
+        setSortBy={setSortBy}
         rows={filteredBugs}
         filters={filters}
       />

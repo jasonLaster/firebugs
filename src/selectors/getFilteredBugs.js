@@ -92,6 +92,10 @@ function filterBugs(state, filtered) {
 
 // Sort by priority and then by first meta
 function sortBugs(state, bugs) {
+  if (state.filters.sortBy) {
+    return orderBy(bugs, b => b.Changed, ['desc']);
+  }
+
   if (state.filters.page == 'intermittents') {
     return orderBy(bugs, b => b.failCount, ['desc']);
   }

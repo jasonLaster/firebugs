@@ -14,8 +14,18 @@ export function setType(type) {
   return setFilter({ type });
 }
 
+export function setSortBy(sortBy) {
+  return function(dispatch, getState) {
+    if (getState().filters.sortBy == sortBy) {
+      sortBy = null;
+    }
+
+    dispatch(setFilter({ sortBy }));
+  };
+}
+
 export function setMeta(meta) {
-  return async function(dispatch, getState) {
+  return function(dispatch, getState) {
     if (getState().filters.meta == meta) {
       meta = null;
     }

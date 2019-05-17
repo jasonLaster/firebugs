@@ -15,6 +15,7 @@ export default function Meta({
   filteredIds,
   filters,
   setMeta,
+  setSortBy,
   setPriority,
 }) {
   const deps = meta.DependsOn.split(', ');
@@ -55,6 +56,7 @@ export default function Meta({
             rows={shownBugs}
             setMeta={setMeta}
             setPriority={setPriority}
+            setSortBy={setSortBy}
             filters={{ ...filters, meta: meta.Alias || meta.BugID }}
           />
         </div>
