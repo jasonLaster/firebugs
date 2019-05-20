@@ -20,6 +20,10 @@ function createData(
   Keywords,
   Type
 ) {
+  if (Assignee == 'nobody') {
+    Assignee = null;
+  }
+
   return {
     BugID,
     Alias,

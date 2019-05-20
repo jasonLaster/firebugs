@@ -32,6 +32,7 @@ function formatIntermittent(bug) {
 function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
   const showIntermittents = filters.page == 'intermittents';
   const releasesPage = filters.page == 'releases';
+  const p1Shown = filters.priority == 'P1';
   const showMetas = filters.keyword == 'meta';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
   return (
@@ -63,7 +64,9 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
         </td>
       ) : null}
 
-      {releasesPage ? <td className={`assignee `}>{bug.Assignee} </td> : null}
+      {releasesPage || p1Shown ? (
+        <td className={`assignee `}>{bug.Assignee} </td>
+      ) : null}
       <td align="right">
         <div
           onClick={() => setPriority(bug.Priority)}
