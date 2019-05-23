@@ -31,22 +31,12 @@ function filterBugs(state, filtered) {
     bugs: { metas, intermittents },
   } = state;
 
-  // filtered = filtered.filter(b => b.Changed.includes('2018'));
-
   if (page === 'releases') {
     filtered = filtered.filter(b => b.Whiteboard.includes('debugger-mvp'));
   }
 
   if (page === 'intermittents') {
     filtered = filtered.filter(b => isIntermittent(b));
-  }
-
-  if (keyword != 'meta') {
-    filtered = filtered.filter(b => !isMeta(b));
-  }
-
-  if (keyword != 'intermittent-failure' && page !== 'intermittents') {
-    filtered = filtered.filter(b => !isIntermittent(b));
   }
 
   if (keyword) {

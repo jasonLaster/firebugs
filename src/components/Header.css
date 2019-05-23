@@ -92,6 +92,24 @@
 
 [data-reach-menu-item] {
   padding: 5px 10px;
+  display: flex;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-item-label {
+  flex-grow: 1;
+}
+
+.menu-item-count {
+  margin-left: 15px;
+  color: var(--neutral-4);
+  font-weight: bold;
+  padding-right: 2px;
+}
+
+[data-reach-menu-item][data-selected] .menu-item-count {
+  color: white;
 }
 
 [data-reach-menu-item][data-selected] {

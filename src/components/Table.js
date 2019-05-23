@@ -87,7 +87,6 @@ function SimpleTable({ rows, filters, setMeta, setPriority, setSortBy }) {
     return <h2 className="empty-results"> No results found</h2>;
   }
 
-  debugger;
   return (
     <div className="bugs-table">
       <table className="pure-table pure-table-horizontal">

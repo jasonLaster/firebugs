@@ -46,7 +46,7 @@ const typeMap = {
 };
 const keywords = Object.keys(keywordMap);
 
-function FilterButton({ name, filter, updater, list, map }) {
+function FilterButton({ name, filter, updater, list, map, getCount }) {
   if (filter) {
     return (
       <button className="selected" onClick={() => updater(null)}>
@@ -65,11 +65,22 @@ function FilterButton({ name, filter, updater, list, map }) {
         </div>
       </MenuButton>
       <MenuList>
-        {list.map(key => (
-          <MenuItem key={key} onSelect={() => updater(key)}>
-            {map[key]}
-          </MenuItem>
-        ))}
+        {list
+          .map(key => {
+            const count = getCount(key);
+
+            if (count === 0) {
+              return null;
+            }
+
+            return (
+              <MenuItem key={key} onSelect={() => updater(key)}>
+                <div className="menu-item-label"> {map[key]}</div>
+                {count ? <div className="menu-item-count">{count}</div> : null}
+              </MenuItem>
+            );
+          })
+          .filter(Boolean)}
       </MenuList>
     </Menu>
   );
@@ -96,6 +107,7 @@ class Header extends React.Component {
       setChanged,
       filters: { keyword, priority, page, meta, type, changed },
       bugs: { metas },
+      filteredBugs,
     } = this.props;
 
     const metaList = [
@@ -117,6 +129,7 @@ class Header extends React.Component {
             filter={type}
             list={types}
             map={typeMap}
+            getCount={key => filteredBugs.filter(b => b.Type == key).length}
           />
 
           <FilterButton
@@ -125,6 +138,11 @@ class Header extends React.Component {
             filter={priority}
             list={priorities}
             map={priorityMap}
+            getCount={key =>
+              filteredBugs.filter(
+                b => b.Priority == (key == 'None' ? ' --' : key)
+              ).length
+            }
           />
 
           <FilterButton
@@ -133,6 +151,9 @@ class Header extends React.Component {
             filter={keyword}
             list={keywords}
             map={keywordMap}
+            getCount={key =>
+              filteredBugs.filter(b => b.Keywords.includes(key)).length
+            }
           />
           <FilterButton
             name="Metas"
@@ -140,6 +161,9 @@ class Header extends React.Component {
             filter={meta}
             list={metaList}
             map={metasMap}
+            getCount={key =>
+              filteredBugs.filter(b => b.Metas.find(m => m.name == key)).length
+            }
           />
           <FilterButton
             name="Changed"
@@ -147,6 +171,7 @@ class Header extends React.Component {
             filter={changed}
             list={changedList}
             map={changedMap}
+            getCount={() => {}}
           />
         </div>
         <div className="search-field">

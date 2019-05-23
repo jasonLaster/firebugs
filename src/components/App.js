@@ -108,7 +108,7 @@ class App extends React.Component {
     return (
       <div className="releases-page">
         {inProgress.length > 0 ? (
-          <div className="page-header">IN PROGRESS</div>
+          <div className="page-header">{inProgress.length} IN PROGRESS</div>
         ) : null}
         {inProgress.length > 0 ? (
           <Table
@@ -119,7 +119,9 @@ class App extends React.Component {
             filters={filters}
           />
         ) : null}
-        {backlog.length > 0 ? <div className="page-header">PLANNED</div> : null}
+        {backlog.length > 0 ? (
+          <div className="page-header">{backlog.length} PLANNED</div>
+        ) : null}
         {backlog.length > 0 ? (
           <Table
             setMeta={setMeta}
