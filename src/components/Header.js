@@ -125,6 +125,7 @@ class Header extends React.Component {
     } = this.props;
 
     const metaList = [
+      'none',
       ...sortBy(metas, m => m.Alias || `x${m.BugID}`).map(
         m => m.Alias || m.BugID
       ),
@@ -175,7 +176,11 @@ class Header extends React.Component {
             list={metaList}
             map={metasMap}
             getCount={key =>
-              filteredBugs.filter(b => b.Metas.find(m => m.name == key)).length
+              filteredBugs.filter(b =>
+                key == 'none'
+                  ? b.Metas.length == 0
+                  : b.Metas.find(m => m.name == key)
+              ).length
             }
           />
           <FilterButton
