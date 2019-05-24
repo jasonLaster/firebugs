@@ -23,6 +23,11 @@ const changedMap = {
   stale: '6+ Months',
 };
 
+const sortByList = ['changed'];
+const sortByMap = {
+  changed: 'Updated',
+};
+
 function identityMap(list) {
   const map = {};
   for (const item of list) {
@@ -104,14 +109,22 @@ class Header extends React.Component {
       setPage,
       setMeta,
       setType,
+      setSortBy,
       setChanged,
-      filters: { keyword, priority, page, meta, type, changed },
+      filters: {
+        keyword,
+        priority,
+        page,
+        meta,
+        type,
+        changed,
+        sortBy: sortByFilter,
+      },
       bugs: { metas },
       filteredBugs,
     } = this.props;
 
     const metaList = [
-      'none',
       ...sortBy(metas, m => m.Alias || `x${m.BugID}`).map(
         m => m.Alias || m.BugID
       ),
@@ -171,6 +184,15 @@ class Header extends React.Component {
             filter={changed}
             list={changedList}
             map={changedMap}
+            getCount={() => {}}
+          />
+
+          <FilterButton
+            name="Sort By"
+            updater={setSortBy}
+            filter={sortByFilter}
+            list={sortByList}
+            map={sortByMap}
             getCount={() => {}}
           />
         </div>
