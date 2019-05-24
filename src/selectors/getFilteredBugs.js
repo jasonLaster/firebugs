@@ -27,7 +27,16 @@ function doSearch(results, search) {
 
 function filterBugs(state, filtered) {
   const {
-    filters: { priority, keyword, search, meta, page, type, changed },
+    filters: {
+      priority,
+      keyword,
+      search,
+      meta,
+      page,
+      type,
+      changed,
+      whiteboard,
+    },
     bugs: { metas, intermittents },
   } = state;
 
@@ -81,6 +90,10 @@ function filterBugs(state, filtered) {
 
   if (type) {
     filtered = filtered.filter(bug => bug.Type == type);
+  }
+
+  if (whiteboard) {
+    filtered = filtered.filter(bug => bug.Whiteboard.includes(whiteboard));
   }
 
   if (!priority) {

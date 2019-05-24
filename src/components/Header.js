@@ -28,6 +28,9 @@ const sortByMap = {
   changed: 'Updated',
 };
 
+const whiteboardList = ['needs-review', '[debugger-mvp]'];
+const whiteboardMap = identityMap(whiteboardList);
+
 function identityMap(list) {
   const map = {};
   for (const item of list) {
@@ -109,6 +112,7 @@ class Header extends React.Component {
       setPage,
       setMeta,
       setType,
+      setWhiteboard,
       setSortBy,
       setChanged,
       filters: {
@@ -118,6 +122,7 @@ class Header extends React.Component {
         meta,
         type,
         changed,
+        whiteboard,
         sortBy: sortByFilter,
       },
       bugs: { metas },
@@ -183,6 +188,18 @@ class Header extends React.Component {
               ).length
             }
           />
+
+          <FilterButton
+            name="Whiteboard"
+            updater={setWhiteboard}
+            filter={whiteboard}
+            list={whiteboardList}
+            map={whiteboardMap}
+            getCount={key =>
+              filteredBugs.filter(b => b.Whiteboard.includes(key)).length
+            }
+          />
+
           <FilterButton
             name="Changed"
             updater={setChanged}

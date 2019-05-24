@@ -14,6 +14,10 @@ export function setType(type) {
   return setFilter({ type });
 }
 
+export function setWhiteboard(whiteboard) {
+  return setFilter({ whiteboard });
+}
+
 export function setSortBy(sortBy) {
   return function(dispatch, getState) {
     if (getState().filters.sortBy == sortBy) {

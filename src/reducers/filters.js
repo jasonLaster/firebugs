@@ -6,6 +6,7 @@ const initialState = {
   type: null,
   changed: null,
   sortBy: null,
+  whiteboard: null,
   page: 'bugs',
 };
 
@@ -18,6 +19,7 @@ function updateUrl({
   type,
   changed,
   sortBy,
+  whiteboard,
 }) {
   let parts = [];
 
@@ -34,6 +36,9 @@ function updateUrl({
   }
   if (changed) {
     parts.push(`changed=${encodeURIComponent(changed)}`);
+  }
+  if (whiteboard) {
+    parts.push(`whiteboard=${encodeURIComponent(whiteboard)}`);
   }
   if (sortBy) {
     parts.push(`sortBy=${encodeURIComponent(sortBy)}`);
