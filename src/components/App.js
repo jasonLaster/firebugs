@@ -102,8 +102,16 @@ class App extends React.Component {
       setSortBy,
     } = this.props;
 
-    const inProgress = filteredBugs.filter(meta => meta.Status == 'ASSIGNED');
-    const backlog = filteredBugs.filter(meta => meta.Status !== 'ASSIGNED');
+    const inProgress = filteredBugs.filter(bug => bug.Status == 'ASSIGNED');
+    const backlog = filteredBugs.filter(
+      bug => bug.Status !== 'ASSIGNED' && !bug.Assignee
+    );
+
+    const planned = filteredBugs.filter(
+      bug => bug.Status !== 'ASSIGNED' && bug.Assignee
+    );
+
+    console.log(planned);
 
     return (
       <div className="releases-page">
@@ -119,8 +127,21 @@ class App extends React.Component {
             filters={filters}
           />
         ) : null}
+        {planned.length > 0 ? (
+          <div className="page-header">{planned.length} PLANNED</div>
+        ) : null}
+        {planned.length > 0 ? (
+          <Table
+            setMeta={setMeta}
+            setPriority={setPriority}
+            setSortBy={setSortBy}
+            rows={planned}
+            filters={filters}
+          />
+        ) : null}
+
         {backlog.length > 0 ? (
-          <div className="page-header">{backlog.length} PLANNED</div>
+          <div className="page-header">{backlog.length} BACKLOG</div>
         ) : null}
         {backlog.length > 0 ? (
           <Table
