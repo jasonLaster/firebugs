@@ -43,7 +43,7 @@ function filterBugs(state, filtered) {
   // filtered = filtered.filter(b => b.Changed.includes('2018'));
 
   if (page === 'releases') {
-    filtered = filtered.filter(b => b.Whiteboard.includes('debugger-mvp'));
+    filtered = filtered.filter(b => b.Whiteboard.includes('debugger-'));
   }
 
   if (page === 'intermittents') {

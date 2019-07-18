@@ -104,14 +104,16 @@ class App extends React.Component {
 
     const inProgress = filteredBugs.filter(bug => bug.Status == 'ASSIGNED');
     const backlog = filteredBugs.filter(
-      bug => bug.Status !== 'ASSIGNED' && !bug.Assignee
+      bug => bug.Status !== 'ASSIGNED' && !bug.Assignee && bug.Whiteboard.includes("debugger-mvp")
     );
 
     const planned = filteredBugs.filter(
-      bug => bug.Status !== 'ASSIGNED' && bug.Assignee
+      bug => bug.Status !== 'ASSIGNED' && bug.Assignee  && bug.Whiteboard.includes("debugger-mvp")
     );
 
-    console.log(planned);
+    const reserve = filteredBugs.filter(
+      bug => bug.Whiteboard.includes("debugger-reserve")
+    );
 
     return (
       <div className="releases-page">
@@ -149,6 +151,19 @@ class App extends React.Component {
             setPriority={setPriority}
             setSortBy={setSortBy}
             rows={backlog}
+            filters={filters}
+          />
+        ) : null}
+
+        {reserve.length > 0 ? (
+          <div className="page-header">{reserve.length} RESERVE</div>
+        ) : null}
+        {backlog.length > 0 ? (
+          <Table
+            setMeta={setMeta}
+            setPriority={setPriority}
+            setSortBy={setSortBy}
+            rows={reserve}
             filters={filters}
           />
         ) : null}
