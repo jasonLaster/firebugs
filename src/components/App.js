@@ -115,58 +115,31 @@ class App extends React.Component {
       bug => bug.Whiteboard.includes("debugger-reserve")
     );
 
+    function releaseTable(list, label) {
+      if (list.length == 0) {
+        return null;
+      }
+
+      return (
+        <div>
+          <div className="page-header">{list.length} {label}</div>
+          <Table
+            setMeta={setMeta}
+            setPriority={setPriority}
+            setSortBy={setSortBy}
+            rows={list}
+            filters={filters}
+          />
+      </div>
+      );
+    }
+
     return (
       <div className="releases-page">
-        {inProgress.length > 0 ? (
-          <div className="page-header">{inProgress.length} IN PROGRESS</div>
-        ) : null}
-        {inProgress.length > 0 ? (
-          <Table
-            setMeta={setMeta}
-            setPriority={setPriority}
-            setSortBy={setSortBy}
-            rows={inProgress}
-            filters={filters}
-          />
-        ) : null}
-        {planned.length > 0 ? (
-          <div className="page-header">{planned.length} PLANNED</div>
-        ) : null}
-        {planned.length > 0 ? (
-          <Table
-            setMeta={setMeta}
-            setPriority={setPriority}
-            setSortBy={setSortBy}
-            rows={planned}
-            filters={filters}
-          />
-        ) : null}
-
-        {backlog.length > 0 ? (
-          <div className="page-header">{backlog.length} BACKLOG</div>
-        ) : null}
-        {backlog.length > 0 ? (
-          <Table
-            setMeta={setMeta}
-            setPriority={setPriority}
-            setSortBy={setSortBy}
-            rows={backlog}
-            filters={filters}
-          />
-        ) : null}
-
-        {reserve.length > 0 ? (
-          <div className="page-header">{reserve.length} RESERVE</div>
-        ) : null}
-        {backlog.length > 0 ? (
-          <Table
-            setMeta={setMeta}
-            setPriority={setPriority}
-            setSortBy={setSortBy}
-            rows={reserve}
-            filters={filters}
-          />
-        ) : null}
+        {releaseTable(inProgress, 'IN PROGRESS')}
+        {releaseTable(planned, 'PLANNED')}
+        {releaseTable(reserve, 'BACKLOG')}
+        {releaseTable(backlog, 'RESERVED')}
       </div>
     );
   }
