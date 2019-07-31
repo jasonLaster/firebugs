@@ -103,16 +103,17 @@ class App extends React.Component {
     } = this.props;
 
     const inProgress = filteredBugs.filter(bug => bug.Status == 'ASSIGNED');
-    const backlog = filteredBugs.filter(
-      bug => bug.Status !== 'ASSIGNED' && !bug.Assignee && bug.Whiteboard.includes("debugger-mvp")
+    
+    const planned = filteredBugs.filter(
+      bug => !inProgress.includes(bug) && bug.Status !== 'ASSIGNED' && bug.Assignee 
     );
 
-    const planned = filteredBugs.filter(
-      bug => bug.Status !== 'ASSIGNED' && bug.Assignee  && bug.Whiteboard.includes("debugger-mvp")
+    const backlog = filteredBugs.filter(
+      bug => ![...inProgress, ...planned].includes(bug) && bug.Whiteboard.includes("debugger-mvp")
     );
 
     const reserve = filteredBugs.filter(
-      bug => bug.Whiteboard.includes("debugger-reserve")
+      bug => ![...inProgress, ...planned].includes(bug) && bug.Whiteboard.includes("debugger-reserve")
     );
 
     function releaseTable(list, label) {
@@ -138,8 +139,8 @@ class App extends React.Component {
       <div className="releases-page">
         {releaseTable(inProgress, 'IN PROGRESS')}
         {releaseTable(planned, 'PLANNED')}
-        {releaseTable(reserve, 'BACKLOG')}
-        {releaseTable(backlog, 'RESERVED')}
+        {releaseTable(backlog, 'BACKLOG')}
+        {releaseTable(reserve, 'RESERVED')}
       </div>
     );
   }
