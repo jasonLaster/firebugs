@@ -53,6 +53,18 @@ th {
   margin: 0 auto;
 }
 
+.pure-table td.type-enhancement {
+  border-left: 2px solid #2ABA27;
+}
+
+.pure-table td.type-defect {
+  border-left: 2px solid #EA3C3D;
+}
+
+.pure-table td.type-task {
+  border-left: 2px solid #2886C9;
+}
+
 .bugs-table span.meta {
   margin-left: 10px;
   border-radius: 4px;

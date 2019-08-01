@@ -35,9 +35,10 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
   const p1Shown = filters.priority == 'P1';
   const showMetas = filters.keyword == 'meta';
   const shownMetas = bug.Metas.filter(meta => meta.name != filters.meta);
+
   return (
     <tr>
-      <td>
+      <td className={`type-${bug.Type}`}>
         <div className="bug-summary">
           <span className="bug-alias">{isMeta(bug) ? bug.Alias : ''}</span>{' '}
           <BugLink bug={bug}>
