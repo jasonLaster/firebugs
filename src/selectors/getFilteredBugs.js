@@ -16,7 +16,7 @@ function priorityValue(priority) {
 
 function doSearch(results, search) {
   const fuse = new Fuse(results, {
-    keys: [{ name: 'Summary' }],
+    keys: [{ name: 'Summary' }, { name: 'Alias' }],
     tokenize: true,
     matchAllTokens: true,
     threshold: 0.2,
