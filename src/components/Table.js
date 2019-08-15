@@ -29,7 +29,7 @@ function formatIntermittent(bug) {
   // return bug.Summary;
 }
 
-function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
+function Row({ bug, filters, setMeta, setSearch, setPriority, setSortBy }) {
   const showIntermittents = filters.page == 'intermittents';
   const releasesPage = filters.page == 'releases';
   const p1Shown = filters.priority == 'P1';
@@ -40,7 +40,13 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
     <tr>
       <td className={`type-${bug.Type}`}>
         <div className="bug-summary">
-          <a className="bug-alias" onClick={() => setMeta(bug.Alias)}>
+          <a
+            className="bug-alias"
+            onClick={() => {
+              setMeta(bug.Alias);
+              setSearch('');
+            }}
+          >
             {isMeta(bug) ? bug.Alias : ''}
           </a>{' '}
           <BugLink bug={bug}>
@@ -85,7 +91,14 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
   );
 }
 
-function SimpleTable({ rows, filters, setMeta, setPriority, setSortBy }) {
+function SimpleTable({
+  rows,
+  filters,
+  setMeta,
+  setSearch,
+  setPriority,
+  setSortBy,
+}) {
   if (rows.length == 0) {
     return <h2 className="empty-results"> No results found</h2>;
   }
@@ -102,6 +115,7 @@ function SimpleTable({ rows, filters, setMeta, setPriority, setSortBy }) {
               setMeta={setMeta}
               setPriority={setPriority}
               setSortBy={setSortBy}
+              setSearch={setSearch}
             />
           ))}
         </tbody>

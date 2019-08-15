@@ -123,6 +123,7 @@ class Header extends React.Component {
         type,
         changed,
         whiteboard,
+        search,
         sortBy: sortByFilter,
       },
       bugs: { metas },
@@ -224,6 +225,7 @@ class Header extends React.Component {
             ref={this.searchInput}
             placeholder="Search..."
             onChange={e => this.onSearch(e.target.value)}
+            value={search}
           />
         </div>
       </div>

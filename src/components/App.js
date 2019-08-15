@@ -99,6 +99,7 @@ class App extends React.Component {
       filters,
       setMeta,
       setPriority,
+      setSearch,
       setSortBy,
     } = this.props;
 
@@ -133,6 +134,7 @@ class App extends React.Component {
           </div>
           <Table
             setMeta={setMeta}
+            setSearch={setSearch}
             setPriority={setPriority}
             setSortBy={setSortBy}
             rows={list}
@@ -157,6 +159,7 @@ class App extends React.Component {
       filteredBugs,
       setMeta,
       setPriority,
+      setSearch,
       setSortBy,
       bugs: { bugs },
       filters,
@@ -174,6 +177,7 @@ class App extends React.Component {
       <Table
         setMeta={setMeta}
         setPriority={setPriority}
+        setSearch={setSearch}
         setSortBy={setSortBy}
         rows={filteredBugs}
         filters={filters}
