@@ -6,8 +6,8 @@
 }
 
 .App-Header a {
-  text-decoration: none;
   margin-left: 10px;
+  color: inherit;
 }
 
 .App-Header a:hover {

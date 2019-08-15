@@ -40,7 +40,9 @@ function Row({ bug, filters, setMeta, setPriority, setSortBy }) {
     <tr>
       <td className={`type-${bug.Type}`}>
         <div className="bug-summary">
-          <span className="bug-alias">{isMeta(bug) ? bug.Alias : ''}</span>{' '}
+          <a className="bug-alias" onClick={() => setMeta(bug.Alias)}>
+            {isMeta(bug) ? bug.Alias : ''}
+          </a>{' '}
           <BugLink bug={bug}>
             {showIntermittents ? formatIntermittent(bug) : bug.Summary}{' '}
           </BugLink>

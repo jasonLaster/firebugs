@@ -265,10 +265,26 @@ class Header extends React.Component {
     if (keyword) {
       term += ` ${keywordMap[keyword]}`;
     } else {
-      term += ' Bugs';
+      term += ' bugs';
     }
 
-    return `${filteredBugs.length} ${term}`;
+    const text = `${filteredBugs.length} ${term}`;
+    const viewingMeta = meta && !(keyword && priority);
+
+    if (viewingMeta) {
+      return (
+        <h1>
+          <a
+            target="_blank"
+            href="https://bugzilla.mozilla.org/show_bug.cgi?id=dbg-watchpoints"
+          >
+            {text}
+          </a>
+        </h1>
+      );
+    }
+
+    return <h1>{text}</h1>;
   }
 
   render() {
@@ -314,7 +330,7 @@ class Header extends React.Component {
               Intermittents
             </a>
           </div>
-          <h1>{this.getTitle()}</h1>
+          {this.getTitle()}
           {this.searchBox()}
         </div>
         <div className="gap" />
