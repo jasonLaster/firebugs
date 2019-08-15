@@ -109,6 +109,10 @@ th {
   font-weight: bold;
 }
 
+.bugs-table .bug-alias:hover {
+  cursor: pointer;
+}
+
 .test-error {
   font-size: 14px;
   line-height: 22px;
