@@ -28,7 +28,7 @@ const sortByMap = {
   changed: 'Updated',
 };
 
-const whiteboardList = ['needs-review', '[debugger-mvp]'];
+const whiteboardList = ['needs-review', '[debugger-mvp]', '[debugger-reserve]'];
 const whiteboardMap = identityMap(whiteboardList);
 
 function identityMap(list) {
