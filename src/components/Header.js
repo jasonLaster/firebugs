@@ -276,7 +276,7 @@ class Header extends React.Component {
         <h1>
           <a
             target="_blank"
-            href="https://bugzilla.mozilla.org/show_bug.cgi?id=dbg-watchpoints"
+            href={`https://bugzilla.mozilla.org/show_bug.cgi?id=${meta}`}
           >
             {text}
           </a>
