@@ -243,7 +243,7 @@ class Header extends React.Component {
     const metasPage = page == 'metas';
 
     if (metasPage) {
-      return `${metas.length} Metas`;
+      return <h1>{`${metas.length} Metas`}</h1>;
     }
 
     let term = '';
