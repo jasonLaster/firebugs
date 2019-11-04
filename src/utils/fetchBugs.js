@@ -51,11 +51,11 @@ function saveData(results) {
   return results;
 }
 
-async function fetchData() {
+async function fetchData(product, component) {
   if (offline) {
     return fetchedResults;
   } else {
-    let results = await (await fetch('.netlify/functions/bugs')).json();
+    let results = await (await fetch(`.netlify/functions/bugs/${product}/${component}`)).json();
     results.shift();
     results = results.map(row => createData(...row));
     return results;
@@ -107,9 +107,9 @@ function formatResults(results) {
   return { bugs, metas, bugsMap: map };
 }
 
-export async function getBugs() {
+export async function getBugs(product, component) {
   const results = await parse();
-  const fetched = fetchData()
+  const fetched = fetchData(product, component)
     .then(saveData)
     .then(formatResults);
 

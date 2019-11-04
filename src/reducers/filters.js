@@ -8,6 +8,8 @@ const initialState = {
   sortBy: null,
   whiteboard: null,
   page: 'bugs',
+  product: 'devtools',
+  component: 'debugger',
 };
 
 function updateUrl({
@@ -20,6 +22,8 @@ function updateUrl({
   changed,
   sortBy,
   whiteboard,
+  product,
+  component
 }) {
   let parts = [];
 
@@ -52,7 +56,11 @@ function updateUrl({
     parts.push(`priority=${priority}`);
   }
 
-  window.location = `#${page}${parts.length > 0 ? '?' : ''}${parts.join('&')}`;
+  if (parts.length > 0) {
+    window.location = `#${page}${parts.length > 0 ? '?' : ''}${parts.join('&')}/${product}/${component}`;
+  } else {
+    window.location = `#${page}/${product}/${component}`;
+  }
 }
 
 export default function update(state = initialState, action) {
