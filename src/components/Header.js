@@ -305,28 +305,24 @@ class Header extends React.Component {
           <div className="links">
             <a
               className={page === 'bugs' ? 'selected' : ''}
-              href="#bugs"
               onClick={() => setPage('bugs')}
             >
               Bugs
             </a>
             <a
               className={page === 'metas' ? 'selected' : ''}
-              href="#metas"
               onClick={() => setPage('metas')}
             >
               Metas
             </a>
             <a
               className={page === 'releases' ? 'selected' : ''}
-              href="#releases"
               onClick={() => setPage('releases')}
             >
               Release
             </a>
             <a
               className={page === 'intermittents' ? 'selected' : ''}
-              href="#intermittents"
               onClick={() => setPage('intermittents')}
             >
               Intermittents
