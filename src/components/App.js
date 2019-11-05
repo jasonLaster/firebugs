@@ -13,24 +13,14 @@ import Meta from './Meta';
 import './App.css';
 
 function parseParams() {
-  const search = window.location.toString().match(/\?[^/]*/);
-  let [, product, component] = window.location.hash.match(/^(\/)?(.*?)(\/)?$/)[2].split('/');
-
-  if (!product) {
-    product = 'devtools';
-  }
-
-  if (!component) {
-    component = 'debugger';
-  }
-
+  const search = window.location.toString().match(/\?.*/);
   let page = 'bugs';
   if (window.location.hash) {
     page = window.location.hash.match(/^#(\w*)/)[1];
   }
 
   if (!search) {
-    return { page, product, component };
+    return { page };
   }
 
   const params = new URLSearchParams(search[0]);
@@ -42,8 +32,6 @@ function parseParams() {
     changed: params.get('changed'),
     sortBy: params.get('sortBy'),
     page,
-    product,
-    component,
     // search: params.get('search')
     //   ? decodeURIComponent(params.get('search'))
     //   : '',
@@ -52,9 +40,9 @@ function parseParams() {
 
 class App extends React.Component {
   async componentDidMount() {
+    this.refresh();
     const params = parseParams();
     this.props.setFilter(params);
-    this.refresh();
   }
 
   async refresh() {
