@@ -53,9 +53,8 @@ export function setFilter(value) {
 }
 
 export function fetchBugs() {
-  return async function(dispatch, getState) {
-    const { product, component } = getState().filters;
-    const { bugs, metas, fetched } = await getBugs(product, component);
+  return async function(dispatch) {
+    const { bugs, metas, fetched } = await getBugs();
     dispatch(updateResults({ bugs, metas }));
 
     const res = await fetched;
