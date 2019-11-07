@@ -12,6 +12,7 @@ async function getResults(product, component) {
       request(url, { json: true }, (err, res, body) => r(body))
     );
     const data = await csv({ noheader: true, output: 'csv' }).fromString(resp);
+    console.log(`${product} ${component}: ${data.length}`);
     const json = JSON.stringify(data);
     return json;
   } catch (e) {
@@ -25,6 +26,5 @@ exports.handler = async function(event, context, callback) {
   const product = pathArray[pathArray.length - 2];
   const component = pathArray[pathArray.length - 1];
   const results = await getResults(product, component);
-  console.log(`${product} ${component}: ${results.length}`);
   callback(null, { statusCode: 200, body: results });
 };
