@@ -22,7 +22,6 @@ exports.handler = async function (event, context, callback) {
     const results = await getResults(searchText);
     callback(null, {
         statusCode: 200,
-        body: JSON.stringify(results),
-        contentType: 'text/json',
+        body: results,
     });
 };
