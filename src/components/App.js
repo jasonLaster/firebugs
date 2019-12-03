@@ -14,15 +14,6 @@ import './App.css';
 
 function parseParams() {
   const search = window.location.toString().match(/\?[^/]*/);
-  let [, product, component] = window.location.hash.match(/^(\/)?(.*?)(\/)?$/)[2].split('/');
-
-  if (!product) {
-    product = 'devtools';
-  }
-
-  if (!component) {
-    component = 'debugger';
-  }
 
   let page = 'bugs';
   if (window.location.hash) {
@@ -30,7 +21,7 @@ function parseParams() {
   }
 
   if (!search) {
-    return { page, product, component };
+    return { page };
   }
 
   const params = new URLSearchParams(search[0]);
@@ -42,8 +33,6 @@ function parseParams() {
     changed: params.get('changed'),
     sortBy: params.get('sortBy'),
     page,
-    product,
-    component,
     // search: params.get('search')
     //   ? decodeURIComponent(params.get('search'))
     //   : '',
