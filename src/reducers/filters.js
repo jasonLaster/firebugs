@@ -1,3 +1,5 @@
+let [, product, component] = window.location.hash.match(/^(\/)?(.*?)(\/)?$/)[2].split('/');
+
 const initialState = {
   priority: null,
   keyword: null,
@@ -8,8 +10,8 @@ const initialState = {
   sortBy: null,
   whiteboard: null,
   page: 'bugs',
-  product: 'devtools',
-  component: 'debugger',
+  product: product || 'DevTools',
+  component: component || 'Debugger',
 };
 
 function updateUrl({

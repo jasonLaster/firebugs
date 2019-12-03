@@ -32,14 +32,20 @@
 }
 
 .App-Header .links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr repeat(4, auto) 1fr;
+  grid-column-gap: 5px;
+  justify-items: right;
   color: var(--neutral-3);
+}
+
+.App-Header .links a:nth-child(1) { 
+  grid-column-start: 2; 
 }
 
 .App-Header .links a {
   color: var(--neutral-6);
+  margin-top: 6px;
 }
 
 .App-Header .search-box {
@@ -161,4 +167,8 @@
 
 .filters button.selected .button {
   color: var(--cyan-2);
+}
+
+.select-component {
+  width: 250px;
 }
