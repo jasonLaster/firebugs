@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { debounce, sortBy } from 'lodash';
+import { fetchComponents } from '../utils';
+import AsyncSelect from 'react-select/async';
 
 import {
   Menu,
@@ -94,14 +96,51 @@ function FilterButton({ name, filter, updater, list, map, getCount }) {
   );
 }
 
+const componentSelectStyles = {
+  control: (styles) => ({
+    ...styles,
+    height: '30px',
+    minHeight: '30px',
+    borderStyle: 'none',
+  }),
+  indicatorsContainer: () => ({ display: 'none' }),
+  placeholder: (styles, { isFocused }) => {
+    return isFocused ? { ...styles } : { ...styles, right: 0, marginRight: '10px' };
+  },
+};
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      componentValue: props.filters.component.replace(/%20/g, " "),
+    };
     this.onSearch = debounce(this.onSearch.bind(this));
+    this.onSelectClick = this.onSelectClick.bind(this);
+    this.onSelectBlur = this.onSelectBlur.bind(this);
   }
 
   onSearch(search) {
     this.props.setSearch(search);
+  }
+
+  async onComponentSelection(product, component) {
+    this.setState({ componentValue: { value: component, label: component } });
+    this.props.setFilter({ product, component });
+    await this.props.fetchBugs();
+    document.activeElement.blur();
+  }
+
+  onSelectClick() {
+    this.setState({
+      componentValue: 'Search product/component',
+    });
+  }
+
+  onSelectBlur() {
+    let { component } = this.props.filters;
+    component = component.replace(/%20/g, " ");
+    this.setState({ componentValue: component });
   }
 
   searchBox() {
@@ -327,6 +366,18 @@ class Header extends React.Component {
             >
               Intermittents
             </a>
+            <div className="select-component" onMouseDown={this.onSelectClick} onBlur={this.onSelectBlur}>
+              <AsyncSelect
+                styles={componentSelectStyles}
+                cacheOptions
+                loadOptions={fetchComponents}
+                onChange={(value) => this.onComponentSelection(value.product, value.label)}
+                noOptionsMessage={(value) => value.inputValue.length > 2 ? 'No components found' : null}
+                value={this.state.componentValue}
+                placeholder={this.state.componentValue}
+                closeMenuOnSelect={true}
+              />
+            </div>
           </div>
           {this.getTitle()}
           {this.searchBox()}
