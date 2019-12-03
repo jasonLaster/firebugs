@@ -21,7 +21,7 @@ export async function fetchComponents(search) {
       `.netlify/functions/components?searchText=${search}`
     )).json();
 
-    const formattedResults = formatComponentsResults(JSON.parse(results).products);
+    const formattedResults = formatComponentsResults(results.products);
     return formattedResults;
   }
 };
