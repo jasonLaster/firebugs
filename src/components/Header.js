@@ -106,8 +106,19 @@ const componentSelectStyles = {
   }),
   indicatorsContainer: () => ({ display: 'none' }),
   placeholder: (styles, { isFocused }) => {
-    return isFocused ? { ...styles } : { ...styles, right: 0, marginRight: '10px' };
+    return isFocused 
+    ? { ...styles } 
+    : { 
+      ...styles, 
+      right: 0, 
+      marginRight: '10px', 
+      color: 'var(--primary-7)' 
+    };
   },
+  option: (styles) => ({
+    ...styles,
+    color: 'var(--neutral-6)'
+  })
 };
 
 class Header extends React.Component {
