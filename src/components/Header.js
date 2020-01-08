@@ -360,18 +360,7 @@ class Header extends React.Component {
             >
               Bugs
             </a>
-            <a
-              className={page === 'metas' ? 'selected' : ''}
-              onClick={() => setPage('metas')}
-            >
-              Metas
-            </a>
-            <a
-              className={page === 'releases' ? 'selected' : ''}
-              onClick={() => setPage('releases')}
-            >
-              Release
-            </a>
+
             <a
               className={page === 'intermittents' ? 'selected' : ''}
               onClick={() => setPage('intermittents')}
