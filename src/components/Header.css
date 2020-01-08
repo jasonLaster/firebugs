@@ -33,14 +33,14 @@
 
 .App-Header .links {
   display: grid;
-  grid-template-columns: 1fr repeat(4, auto) 1fr;
+  grid-template-columns: 1fr repeat(2, auto) 1fr;
   grid-column-gap: 5px;
   justify-items: right;
   color: var(--neutral-3);
 }
 
-.App-Header .links a:nth-child(1) { 
-  grid-column-start: 2; 
+.App-Header .links a:nth-child(1) {
+  grid-column-start: 2;
 }
 
 .App-Header .links a {
