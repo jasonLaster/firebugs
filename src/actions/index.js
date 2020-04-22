@@ -38,8 +38,6 @@ export function setMeta(meta) {
   };
 }
 
-const debouncedSearch = debounce(search => setFilter({ search }), 100);
-
 export function setSearch(search) {
   return setFilter({ search });
 }
@@ -78,9 +76,9 @@ export function fetchIntermittents() {
   return async function(dispatch, getState) {
     const intermittents = getIntermittents(getState());
     const ids = intermittents.map(i => i.BugID).join(',');
-    const results = await (await fetch(
-      `.netlify/functions/intermittents?bugs=${ids}`
-    )).json();
+    const results = await (
+      await fetch(`.netlify/functions/intermittents?bugs=${ids}`)
+    ).json();
 
     localStorage.setItem('intermittents', JSON.stringify(results));
     dispatch({ type: 'SET_INTERMITTENTS', value: { intermittents: results } });

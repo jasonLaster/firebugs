@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { debounce, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import { fetchComponents } from '../utils';
 
 import {
@@ -127,7 +127,7 @@ class Header extends React.Component {
     this.state = {
       componentValue: props.filters.component.replace(/%20/g, " "),
     };
-    this.onSearch = debounce(this.onSearch.bind(this));
+    this.onSearch = this.onSearch.bind(this);
     this.onSelectClick = this.onSelectClick.bind(this);
     this.onSelectBlur = this.onSelectBlur.bind(this);
   }
@@ -389,7 +389,4 @@ class Header extends React.Component {
   }
 }
 
-export default connect(
-  state => state,
-  actions
-)(Header);
+export default connect(state => state, actions)(Header);
