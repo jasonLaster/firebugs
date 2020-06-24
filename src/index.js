@@ -1,3 +1,5 @@
+import LogRocket from 'logrocket';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux';
@@ -14,6 +16,9 @@ import './index.css';
 
 window.store = store;
 window.actions = bindActionCreators(actions, store.dispatch);
+
+LogRocket.init('sssxa4/firebugs');
+
 
 ReactDOM.render(
   <Provider store={store}>
